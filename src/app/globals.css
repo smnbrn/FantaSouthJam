@@ -1,0 +1,217 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Dark mode pilotata da classe .dark su <html>, gestita da ThemeProvider. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* =============================================================================
+   FANTA3V3 AMANTEA — Design tokens
+   Palette ancorata al brief (arancione / nero / bianco) con due varianti
+   tonali proprie — "ember" (tramonto) e "hardwood" (parquet) — invece dei
+   toni terracotta/cliché generici da "AI design".
+   ============================================================================= */
+:root {
+  --court-black: #121012;
+  --net-white: #faf8f5;
+  --amantea-orange: #ff5a1f;
+  --amantea-orange-strong: #e6480f;
+  --ember: #ffb627;
+  --hardwood: #a6693a;
+
+  --background: var(--net-white);
+  --foreground: var(--court-black);
+  --surface: #ffffff;
+  --surface-muted: #f3ede2;
+  --primary: var(--amantea-orange);
+  --primary-foreground: #fffaf5;
+  --secondary: var(--hardwood);
+  --secondary-foreground: #fffaf5;
+  --accent: var(--ember);
+  --accent-foreground: #201202;
+  --muted: #efe8db;
+  --muted-foreground: #74695b;
+  --border: #e6dcc9;
+  --input: #e6dcc9;
+  --ring: var(--amantea-orange);
+  --destructive: #d1373a;
+  --destructive-foreground: #fff7f2;
+  --success: #2f9e5b;
+  --radius: 1rem;
+
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(166, 105, 58, 0.2);
+  --glass-blur: 16px;
+
+  --scoreboard-bg: #17130f;
+  --scoreboard-foreground: #ffe9d1;
+  --scoreboard-glow: rgba(255, 90, 31, 0.45);
+}
+
+.dark {
+  --background: #0c0a09;
+  --foreground: #f7f1e6;
+  --surface: #161210;
+  --surface-muted: #1e1814;
+  --primary: var(--amantea-orange);
+  --primary-foreground: #1a0a02;
+  --secondary: #c98a54;
+  --secondary-foreground: #1a0a02;
+  --accent: var(--ember);
+  --accent-foreground: #201202;
+  --muted: #221c17;
+  --muted-foreground: #b3a596;
+  --border: #2c241d;
+  --input: #2c241d;
+  --ring: var(--amantea-orange);
+  --destructive: #ef5a5d;
+  --destructive-foreground: #1a0a02;
+  --success: #3fbf76;
+
+  --glass-bg: rgba(23, 19, 15, 0.55);
+  --glass-border: rgba(255, 182, 39, 0.16);
+
+  --scoreboard-bg: #0a0807;
+  --scoreboard-foreground: #ffe9d1;
+  --scoreboard-glow: rgba(255, 90, 31, 0.55);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+
+  --color-court-black: var(--court-black);
+  --color-net-white: var(--net-white);
+  --color-amantea-orange: var(--amantea-orange);
+  --color-ember: var(--ember);
+  --color-hardwood: var(--hardwood);
+
+  --radius-sm: calc(var(--radius) - 0.5rem);
+  --radius-md: calc(var(--radius) - 0.25rem);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.5rem);
+
+  --font-display: "Anton", "Arial Narrow", sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-scoreboard-in: scoreboard-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes scoreboard-in {
+    from {
+      opacity: 0;
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+  }
+  /* Focus da tastiera sempre visibile: requisito di accessibilità non negoziabile. */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Vetro leggero, riservato a superfici in rilievo (card, nav, modali) — mai
+     usato ovunque per non appesantire la lettura. */
+  .glass-panel {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  }
+
+  /* Elemento firma: pannello "tabellone segnapunti" per countdown, crediti,
+     punteggi e numeri di giornata — il filo conduttore visivo dell'app. */
+  .scoreboard {
+    background: var(--scoreboard-bg);
+    color: var(--scoreboard-foreground);
+    border: 1px solid rgba(255, 182, 39, 0.22);
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.3) inset,
+      0 12px 32px -12px var(--scoreboard-glow);
+    position: relative;
+    overflow: hidden;
+  }
+  .scoreboard::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--amantea-orange), transparent);
+  }
+  .scoreboard-digit {
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+
+  .court-arc-bg {
+    background-image: radial-gradient(circle at 50% 120%, rgba(255, 90, 31, 0.16), transparent 60%);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
