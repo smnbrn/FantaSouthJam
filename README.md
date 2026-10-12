@@ -7,33 +7,43 @@ bonus e malus dopo ogni giornata.
 
 > Progetto full-stack completo, dal database alla UI, pensato per essere usato davvero durante un evento reale.
 
-<!-- Screenshot: inserisci le immagini in docs/screenshots/ (vedi sezione in fondo) -->
-<!--
 ![Home](docs/screenshots/home.png)
-![Mercato](docs/screenshots/mercato.png)
-![Classifica](docs/screenshots/classifica.png)
-![Admin](docs/screenshots/admin.png)
--->
+
+> Le schermate di questa pagina usano un account di prova con dati inventati.
 
 ## Funzionalità
 
-**Per i partecipanti**
-- Registrazione, login e recupero password (Supabase Auth)
-- Creazione della squadra e gestione della rosa: titolari / riserve, acquisto e vendita dal mercato
-- **Mercato a crediti** con ricerca, filtri e ordinamento; il budget è verificato lato database
-- **Giornate** (il torneo ne conta 4) con punteggi e dettaglio di bonus/malus per ogni giocatore
-- **Classifica in tempo reale** (Supabase Realtime): si aggiorna da sola senza ricaricare la pagina
-- Pagina pubblica di ogni squadra con rosa e storico
-- Home con countdown all'inizio del torneo, regolamento e FAQ
+### Per i partecipanti
+- Registrazione, login e recupero password (Supabase Auth).
+- Home con countdown all'inizio del torneo, regolamento e FAQ.
 
-**Per l'organizzazione (`/admin`, solo ruolo `admin`)**
+### Mercato e squadra
+- **Mercato a crediti** con ricerca, filtri e ordinamento; il budget è verificato lato database.
+- Creazione della squadra e gestione della rosa: titolari e riserve, acquisto e vendita dei giocatori.
+
+![Mercato](docs/screenshots/mercato.png)
+
+![La mia squadra](docs/screenshots/squadra.png)
+
+### Giornate e classifica
+- **Giornate** (il torneo ne conta 4) con punteggi e dettaglio di bonus e malus per ogni giocatore.
+- **Classifica in tempo reale** (Supabase Realtime): si aggiorna da sola senza ricaricare la pagina.
+- Pagina pubblica di ogni squadra con rosa e storico.
+
+![Giornate](docs/screenshots/giornate.png)
+
+![Classifica](docs/screenshots/classifica.png)
+
+### Pannello admin (`/admin`, solo ruolo `admin`)
 - Gestione giocatori: aggiunta, modifica, costi, rimozione dal mercato (disattivazione *soft*, per non rompere
-  lo storico di chi li ha già posseduti)
-- Gestione giornate: stato, recap testuale, assegnazione di bonus/malus per giocatore
-- Impostazioni: apertura/chiusura mercato, budget iniziale, dimensione rosa e titolari, data di inizio torneo,
-  testo del regolamento
-- Elenco utenti e squadre
-- **Audit log** automatico di ogni azione admin, scritto da un trigger del database
+  lo storico di chi li ha già posseduti).
+- Gestione giornate: stato, recap testuale, assegnazione di bonus e malus per giocatore.
+- Impostazioni: apertura e chiusura del mercato, budget iniziale, dimensione di rosa e titolari, data di inizio
+  torneo, testo del regolamento.
+- Elenco di utenti e squadre.
+- **Audit log** automatico di ogni azione admin, scritto da un trigger del database.
+
+![Pannello admin](docs/screenshots/admin.png)
 
 ## Scelte tecniche
 
