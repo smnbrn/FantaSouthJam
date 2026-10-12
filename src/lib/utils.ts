@@ -36,7 +36,6 @@ export function getInitials(name: string) {
  */
 export function safeRedirectPath(value: string | null | undefined, fallback = "/dashboard") {
   if (!value || !value.startsWith("/") || value.startsWith("//")) return fallback;
-  // eslint-disable-next-line no-control-regex
   if (/[\u0000-\u001F\u007F\\]/.test(value)) return fallback;
   return value;
 }
