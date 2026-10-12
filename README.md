@@ -9,13 +9,13 @@ bonus e malus dopo ogni giornata.
 
 ![Home](docs/screenshots/home.png)
 
-> Le schermate di questa pagina usano un account di prova con dati inventati.
+> Le schermate mostrano i dati reali dell'edizione 2026 (mercato chiuso a fine torneo), viste dal profilo di un amministratore.
 
 ## Funzionalità
 
 ### Per i partecipanti
 - Registrazione, login e recupero password (Supabase Auth), pagina profilo con modifica dati e password.
-- Home con countdown all'inizio del torneo, regolamento e FAQ.
+- Home con countdown alla giornata successiva (o alla prossima edizione a torneo concluso), regolamento, FAQ e pagina crediti.
 
 ### Mercato e squadra
 - **Mercato a crediti** con ricerca, filtri e ordinamento; il budget è verificato lato database.
@@ -40,7 +40,7 @@ bonus e malus dopo ogni giornata.
 ### Pannello admin (`/admin`, solo ruolo `admin`)
 - Gestione giocatori: aggiunta, modifica, costi, rimozione dal mercato (disattivazione *soft*, per non rompere
   lo storico di chi li ha già posseduti).
-- Gestione giornate: stato, recap testuale, assegnazione di bonus e malus per giocatore.
+- Gestione giornate: stato, recap testuale, assegnazione di più bonus e malus a un giocatore in un'unica operazione.
   I bonus si assegnano a giornate "in corso" o "chiuse": l'avvio della giornata congela le formazioni, e una
   giornata con punteggi non può tornare "da giocare".
 - Impostazioni: apertura e chiusura del mercato e delle iscrizioni, budget iniziale, dimensione di rosa e titolari, data di inizio
@@ -49,6 +49,8 @@ bonus e malus dopo ogni giornata.
 - **Audit log** automatico di ogni azione admin, scritto da un trigger del database.
 
 ![Pannello admin](docs/screenshots/admin.png)
+
+![Assegnazione di bonus e malus](docs/screenshots/admin-bonus.png)
 
 ## Scelte tecniche
 
