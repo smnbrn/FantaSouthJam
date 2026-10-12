@@ -26,6 +26,7 @@ export type MatchdayInput = z.infer<typeof matchdaySchema>;
 export const settingsSchema = z
   .object({
     marketOpen: z.boolean(),
+    registrationOpen: z.boolean(),
     budgetInitial: z.coerce.number().int().positive("Deve essere maggiore di 0"),
     rosterMaxSize: z.coerce.number().int().positive("Deve essere maggiore di 0"),
     rosterMaxStarters: z.coerce.number().int().positive("Deve essere maggiore di 0"),

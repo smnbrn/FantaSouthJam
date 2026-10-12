@@ -28,7 +28,7 @@ export function HowItWorks() {
     <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
       <div className="mx-auto max-w-xl text-center">
         <h2 className="font-display text-3xl uppercase tracking-wide sm:text-4xl">Come funziona</h2>
-        <p className="mt-3 text-muted-foreground">Tre passi, tre giornate, una classifica sola.</p>
+        <p className="mt-3 text-muted-foreground">Quattro passi, una classifica sola.</p>
       </div>
 
       <div className="relative mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

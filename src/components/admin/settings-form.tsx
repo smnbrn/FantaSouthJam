@@ -33,6 +33,7 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
     resolver: zodResolver(settingsSchema),
     defaultValues: {
       marketOpen: settings.market_open,
+      registrationOpen: settings.registration_open,
       budgetInitial: settings.budget_initial,
       rosterMaxSize: settings.roster_max_size,
       rosterMaxStarters: settings.roster_max_starters,
@@ -60,7 +61,7 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Mercato</CardTitle>
+            <CardTitle className="text-base">Mercato e iscrizioni</CardTitle>
           </CardHeader>
           <CardContent>
             <FormField
@@ -70,7 +71,22 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
                 <FormItem className="flex flex-row items-center justify-between rounded-xl border border-border p-4">
                   <div>
                     <FormLabel>Mercato aperto</FormLabel>
-                    <FormDescription>Quando è chiuso, nessuno può acquistare o vendere giocatori.</FormDescription>
+                    <FormDescription>Quando è chiuso, nessuno può acquistare o vendere giocatori. Le rose si bloccano in automatico.</FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="registrationOpen"
+              render={({ field }) => (
+                <FormItem className="mt-3 flex flex-row items-center justify-between rounded-xl border border-border p-4">
+                  <div>
+                    <FormLabel>Iscrizioni aperte</FormLabel>
+                    <FormDescription>Quando sono chiuse, nessuno può registrarsi o creare una nuova squadra.</FormDescription>
                   </div>
                   <FormControl>
                     <Switch checked={field.value} onCheckedChange={field.onChange} />

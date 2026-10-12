@@ -26,3 +26,15 @@ export function getInitials(name: string) {
     .map((part) => part[0]?.toUpperCase() ?? "")
     .join("");
 }
+
+/**
+ * Restituisce `value` solo se è un percorso interno all'app ("/mercato"),
+ * altrimenti `fallback`. Evita gli open redirect: "//sito.com", "/\sito.com"
+ * o "https://sito.com" porterebbero l'utente su un dominio esterno.
+ */
+export function safeRedirectPath(value: string | null | undefined, fallback = "/dashboard") {
+  if (!value || !value.startsWith("/") || value.startsWith("//") || value.startsWith("/\\")) {
+    return fallback;
+  }
+  return value;
+}

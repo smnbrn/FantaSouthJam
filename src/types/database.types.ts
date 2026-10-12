@@ -1,6 +1,6 @@
 /**
  * Tipi TypeScript che rispecchiano lo schema Supabase definito in
- * supabase/migrations/0001_init.sql. La forma di ogni tabella (Row / Insert /
+ * supabase/migrations/ (0001-0004). La forma di ogni tabella (Row / Insert /
  * Update / Relationships) rispecchia deliberatamente `GenericTable` di
  * @supabase/postgrest-js, così `createClient<Database>()` inferisce i tipi
  * corretti su `.from().select()/.insert()/.update()`.
@@ -125,6 +125,7 @@ export interface Database {
           match_date: string | null;
           status: MatchdayStatus;
           results_summary: string | null;
+          lineups_locked_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -135,10 +136,25 @@ export interface Database {
           match_date?: string | null;
           status?: MatchdayStatus;
           results_summary?: string | null;
+          lineups_locked_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["matchdays"]["Insert"]>;
+        Relationships: [];
+      };
+      matchday_lineups: {
+        Row: {
+          matchday_id: string;
+          fantasy_team_id: string;
+          player_id: string;
+        };
+        Insert: {
+          matchday_id: string;
+          fantasy_team_id: string;
+          player_id: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["matchday_lineups"]["Insert"]>;
         Relationships: [];
       };
       bonus_types: {
@@ -304,6 +320,10 @@ export interface Database {
       };
     };
     Functions: {
+      create_team: {
+        Args: { p_team_name: string };
+        Returns: Database["public"]["Tables"]["fantasy_teams"]["Row"];
+      };
       purchase_player: {
         Args: { p_fantasy_team_id: string; p_player_id: string };
         Returns: Database["public"]["Tables"]["fantasy_team_players"]["Row"];

@@ -3,7 +3,7 @@ import { ArrowRight, ScrollText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Countdown } from "@/components/home/countdown";
 
-export function Hero({ tournamentStartDate }: { tournamentStartDate: string | null }) {
+export function Hero({ tournamentStartDate, matchdays }: { tournamentStartDate: string | null; matchdays: number }) {
   return (
     <section className="court-arc-bg relative overflow-hidden">
       {/* Motivo grafico: arco da tre punti di un campo da basket, in filigrana. */}
@@ -45,7 +45,7 @@ export function Hero({ tournamentStartDate }: { tournamentStartDate: string | nu
           style={{ animationDelay: "160ms" }}
         >
           Componi la squadra con i giocatori reali del torneo 3vs3 South Jam di Amantea, gioca il mercato e scala la
-          classifica durante le 3 giornate.
+          classifica {matchdays > 0 ? `nelle ${matchdays} giornate del torneo` : "giornata dopo giornata"}.
         </p>
 
         <div

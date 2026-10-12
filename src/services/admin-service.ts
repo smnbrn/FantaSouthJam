@@ -117,6 +117,7 @@ export async function updateSettings(
 ): Promise<{ error: string | null }> {
   const rows: Array<{ key: string; value: unknown }> = [
     { key: "market_open", value: input.marketOpen },
+    { key: "registration_open", value: input.registrationOpen },
     { key: "budget_initial", value: input.budgetInitial },
     { key: "roster_max_size", value: input.rosterMaxSize },
     { key: "roster_max_starters", value: input.rosterMaxStarters },

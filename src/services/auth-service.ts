@@ -72,6 +72,9 @@ export function translateAuthError(error: unknown): string {
     "Unable to validate email address: invalid format": "Formato email non valido",
     "For security purposes, you can only request this once every 60 seconds":
       "Per sicurezza puoi richiederlo solo una volta ogni 60 secondi",
+    profiles_username_key: "Questo username è già in uso",
+    username_length: "Lo username deve avere tra 3 e 24 caratteri",
+    "New password should be different from the old password": "La nuova password deve essere diversa da quella attuale",
   };
   for (const [key, value] of Object.entries(map)) {
     if (message.includes(key)) return value;

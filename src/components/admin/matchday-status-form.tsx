@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 const STATUS_OPTIONS = [
   { value: "upcoming", label: "Da giocare" },
@@ -78,6 +78,11 @@ export function MatchdayStatusForm({ matchday }: { matchday: Matchday }) {
                         ))}
                       </SelectContent>
                     </Select>
+                    <FormDescription>
+                      {matchday.lineups_locked_at
+                        ? "Formazioni congelate: i punti usano i titolari schierati all'avvio della giornata."
+                        : "Passando a \"In corso\" o \"Chiusa\" le formazioni di tutte le squadre vengono congelate."}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
