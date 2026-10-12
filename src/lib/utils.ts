@@ -29,12 +29,14 @@ export function getInitials(name: string) {
 
 /**
  * Restituisce `value` solo se è un percorso interno all'app ("/mercato"),
- * altrimenti `fallback`. Evita gli open redirect: "//sito.com", "/\sito.com"
- * o "https://sito.com" porterebbero l'utente su un dominio esterno.
+ * altrimenti `fallback`. Evita gli open redirect: "//sito.com", "/\\sito.com"
+ * o "https://sito.com" porterebbero l'utente su un dominio esterno. I browser
+ * ignorano tab e a capo negli URL ("/\t/sito.com" diventa "//sito.com"), quindi
+ * qualsiasi carattere di controllo o backslash viene rifiutato.
  */
 export function safeRedirectPath(value: string | null | undefined, fallback = "/dashboard") {
-  if (!value || !value.startsWith("/") || value.startsWith("//") || value.startsWith("/\\")) {
-    return fallback;
-  }
+  if (!value || !value.startsWith("/") || value.startsWith("//")) return fallback;
+  // eslint-disable-next-line no-control-regex
+  if (/[\u0000-\u001F\u007F\\]/.test(value)) return fallback;
   return value;
 }

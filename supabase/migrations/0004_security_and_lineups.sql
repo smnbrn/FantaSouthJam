@@ -20,6 +20,12 @@
 --   6. Acquisto oltre il limite titolari: un nuovo acquisto entra come titolare
 --      solo se c'è posto, altrimenti come riserva.
 --   7. Funzioni interne (trigger, ricalcoli) non più invocabili via API.
+--   8. Bonus/malus assegnabili solo a giornate avviate, e una giornata con punteggi
+--      non può tornare 'upcoming': la formazione congelata non si perde.
+--
+-- Nota: anche gli admin usano il ruolo `authenticated`, quindi da API non possono
+-- più cambiare `profiles.role` né le colonne di fantasy_teams. Per promuovere un
+-- admin si usa l'SQL Editor (vedi README).
 --
 -- NON ricalcola la classifica esistente: lo storico resta quello attuale.
 -- =============================================================================
@@ -44,14 +50,19 @@ set search_path = public
 as $$
 declare
   v_username text;
+  v_base text;
+  v_suffix_len integer := 2;
 begin
   v_username := nullif(trim(new.raw_user_meta_data ->> 'username'), '');
   if v_username is null or char_length(v_username) not between 3 and 24 then
     v_username := 'utente_' || substr(new.id::text, 1, 8);
   end if;
-  if exists (select 1 from public.profiles where lower(username) = lower(v_username)) then
-    v_username := left(v_username, 19) || '_' || substr(new.id::text, 1, 4);
-  end if;
+  -- Username già preso: aggiunge un suffisso dall'id finché non è libero.
+  v_base := v_username;
+  while exists (select 1 from public.profiles where lower(username) = lower(v_username)) loop
+    v_suffix_len := v_suffix_len + 2;
+    v_username := left(v_base, 23 - v_suffix_len) || '_' || substr(replace(new.id::text, '-', ''), 1, v_suffix_len);
+  end loop;
 
   insert into public.profiles (id, username, full_name)
   values (new.id, v_username, nullif(trim(new.raw_user_meta_data ->> 'full_name'), ''));
@@ -81,6 +92,7 @@ declare
   v_registration_open boolean;
   v_market_open boolean;
   v_team public.fantasy_teams;
+  v_constraint text;
 begin
   if v_user_id is null then
     raise exception 'Devi effettuare l''accesso per creare una squadra';
@@ -112,6 +124,10 @@ begin
     values (v_user_id, v_name, v_budget, v_budget, not coalesce(v_market_open, false))
     returning * into v_team;
   exception when unique_violation then
+    get stacked diagnostics v_constraint = constraint_name;
+    if v_constraint = 'fantasy_teams_user_id_key' then
+      raise exception 'Hai già una squadra';
+    end if;
     raise exception 'Questo nome squadra è già stato scelto da qualcun altro';
   end;
 
@@ -171,7 +187,8 @@ drop policy if exists "matchday_lineups_select_all" on public.matchday_lineups;
 create policy "matchday_lineups_select_all" on public.matchday_lineups for select using (true);
 revoke insert, update, delete on public.matchday_lineups from anon, authenticated;
 
--- Congela le formazioni quando la giornata parte, le scongela se torna 'upcoming'.
+-- Congela le formazioni quando la giornata parte; le scongela se torna 'upcoming',
+-- ma solo se non ha ancora punteggi.
 create or replace function public.trg_matchday_lineups()
 returns trigger
 language plpgsql
@@ -187,6 +204,11 @@ begin
     on conflict do nothing;
     new.lineups_locked_at := now();
   elsif new.status = 'upcoming' and new.lineups_locked_at is not null then
+    -- Con bonus/malus già assegnati la formazione congelata è parte dello storico:
+    -- scongelarla permetterebbe di riscrivere i punti di quella giornata.
+    if exists (select 1 from public.player_score_events where matchday_id = new.id) then
+      raise exception 'Non puoi riportare a "da giocare" una giornata con bonus o malus già assegnati';
+    end if;
     delete from public.matchday_lineups where matchday_id = new.id;
     new.lineups_locked_at := null;
   end if;
@@ -198,6 +220,29 @@ drop trigger if exists matchday_lineups_lock on public.matchdays;
 create trigger matchday_lineups_lock
   before update of status on public.matchdays
   for each row execute function public.trg_matchday_lineups();
+
+-- I bonus/malus si assegnano solo a giornate avviate (formazioni già congelate):
+-- altrimenti i punti sarebbero visibili mentre i titolari sono ancora modificabili.
+create or replace function public.trg_score_events_require_started_matchday()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if exists (
+    select 1 from public.matchdays where id = new.matchday_id and status = 'upcoming'
+  ) then
+    raise exception 'Metti la giornata "in corso" prima di assegnare bonus o malus';
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists score_events_require_started_matchday on public.player_score_events;
+create trigger score_events_require_started_matchday
+  before insert or update of matchday_id on public.player_score_events
+  for each row execute function public.trg_score_events_require_started_matchday();
 
 -- Backfill: per le giornate già giocate lo storico delle formazioni non esiste;
 -- si usano i titolari attuali, cioè la stessa base con cui è stata calcolata la
@@ -536,6 +581,7 @@ revoke execute on function public.log_admin_action() from public, anon, authenti
 revoke execute on function public.log_settings_change() from public, anon, authenticated;
 revoke execute on function public.trg_player_score_events_changed() from public, anon, authenticated;
 revoke execute on function public.trg_matchday_lineups() from public, anon, authenticated;
+revoke execute on function public.trg_score_events_require_started_matchday() from public, anon, authenticated;
 revoke execute on function public.trg_sync_team_lock() from public, anon, authenticated;
 revoke execute on function public.recalc_player_score(uuid, uuid) from public, anon, authenticated;
 revoke execute on function public.recalc_rankings(uuid) from public, anon, authenticated;

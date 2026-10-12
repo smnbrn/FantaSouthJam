@@ -41,6 +41,8 @@ bonus e malus dopo ogni giornata.
 - Gestione giocatori: aggiunta, modifica, costi, rimozione dal mercato (disattivazione *soft*, per non rompere
   lo storico di chi li ha già posseduti).
 - Gestione giornate: stato, recap testuale, assegnazione di bonus e malus per giocatore.
+  I bonus si assegnano a giornate "in corso" o "chiuse": l'avvio della giornata congela le formazioni, e una
+  giornata con punteggi non può tornare "da giocare".
 - Impostazioni: apertura e chiusura del mercato e delle iscrizioni, budget iniziale, dimensione di rosa e titolari, data di inizio
   torneo, testo del regolamento.
 - Elenco di utenti e squadre.
