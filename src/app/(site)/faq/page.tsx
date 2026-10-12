@@ -1,39 +1,53 @@
 import { ChevronDown, HelpCircle } from "lucide-react";
 
+import { createClient } from "@/lib/supabase/server";
+
 export const metadata = {
   title: "FAQ",
-  description: "Le domande più frequenti su Fanta3v3 Amantea: budget, mercato, punteggi e regole del gioco.",
+  description: "Le domande più frequenti su Fanta SouthJam: budget, mercato, punteggi e regole del gioco.",
 };
 
-const FAQS = [
-  {
-    q: "Chi sono i giocatori acquistabili?",
-    a: "Non sono giocatori NBA o professionisti: sono i partecipanti reali del torneo di Basket 3vs3 di Amantea. L'elenco completo viene pubblicato dagli amministratori prima dell'apertura del mercato.",
-  },
-  {
-    q: "Quanti crediti ho a disposizione?",
-    a: "Ogni squadra parte con un budget iniziale in crediti (indicato in dashboard). Puoi spenderlo come preferisci, ma non puoi mai superarlo.",
-  },
-  {
-    q: "Fino a quando posso modificare la mia rosa?",
-    a: "Puoi acquistare, vendere e schierare giocatori liberamente finché il mercato resta aperto. Alla chiusura del mercato, decisa dagli amministratori, la rosa si blocca per tutta la durata del torneo.",
-  },
-  {
-    q: "Come si calcolano i punti della mia squadra?",
-    a: "Ad ogni giornata, gli amministratori assegnano bonus e malus ai giocatori reali (es. vittoria, MVP, canestri, fallo tecnico...). Il punteggio dei tuoi titolari viene sommato automaticamente e la classifica si aggiorna da sola.",
-  },
-  {
-    q: "Quante giornate dura il torneo?",
-    a: "Il torneo di Basket 3vs3 di Amantea si gioca su 3 giornate. Il punteggio totale è la somma dei punti ottenuti in ciascuna giornata.",
-  },
-  
-  {
-    q: "Posso creare più di una squadra?",
-    a: "No, ogni account può gestire una sola squadra fantabasket per l'intera durata del torneo.",
-  },
-];
+function getFaqs(matchdays: number) {
+  return [
+    {
+      q: "Chi sono i giocatori acquistabili?",
+      a: "Non sono giocatori NBA o professionisti: sono i partecipanti reali del torneo di Basket 3vs3 di Amantea. L'elenco completo viene pubblicato dagli amministratori prima dell'apertura del mercato.",
+    },
+    {
+      q: "Quanti crediti ho a disposizione?",
+      a: "Ogni squadra parte con un budget iniziale in crediti (indicato in dashboard). Puoi spenderlo come preferisci, ma non puoi mai superarlo.",
+    },
+    {
+      q: "Fino a quando posso modificare la mia rosa?",
+      a: "Acquisti e vendite sono possibili solo finché il mercato resta aperto: alla chiusura, decisa dagli amministratori, la rosa si blocca. I titolari invece puoi cambiarli anche a mercato chiuso, tranne mentre una giornata è in corso.",
+    },
+    {
+      q: "Se cambio i titolari, cambiano i punti delle giornate passate?",
+      a: "No. Quando una giornata inizia la formazione di ogni squadra viene congelata: quella giornata conta sempre con i titolari schierati in quel momento, anche se in seguito cambi formazione.",
+    },
+    {
+      q: "Come si calcolano i punti della mia squadra?",
+      a: "Ad ogni giornata, gli amministratori assegnano bonus e malus ai giocatori reali (es. vittoria, MVP, canestri, fallo tecnico...). Il punteggio dei tuoi titolari viene sommato automaticamente e la classifica si aggiorna da sola.",
+    },
+    {
+      q: "Quante giornate dura il torneo?",
+      a:
+        matchdays > 0
+          ? `Il torneo di Basket 3vs3 di Amantea si gioca su ${matchdays} giornate. Il punteggio totale è la somma dei punti ottenuti in ciascuna giornata.`
+          : "Il calendario delle giornate viene pubblicato dagli amministratori nella pagina Giornate. Il punteggio totale è la somma dei punti ottenuti in ciascuna giornata.",
+    },
+    {
+      q: "Posso creare più di una squadra?",
+      a: "No, ogni account può gestire una sola squadra fantabasket per l'intera durata del torneo.",
+    },
+  ];
+}
 
-export default function FaqPage() {
+export default async function FaqPage() {
+  const supabase = await createClient();
+  const { count } = await supabase.from("matchdays").select("*", { count: "exact", head: true });
+  const faqs = getFaqs(count ?? 0);
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
       <div className="text-center">
@@ -45,7 +59,7 @@ export default function FaqPage() {
       </div>
 
       <div className="mt-12 flex flex-col gap-3">
-        {FAQS.map((item) => (
+        {faqs.map((item) => (
           <details
             key={item.q}
             className="group rounded-2xl border border-border bg-surface p-5 open:shadow-sm [&_summary::-webkit-details-marker]:hidden"

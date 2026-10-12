@@ -4,22 +4,22 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fanta3v3amantea.it";
-const SITE_TITLE = "Fanta3v3 Amantea — Il fantabasket del torneo South Jam";
+const SITE_TITLE = "Fanta SouthJam — Il fantabasket del torneo South Jam";
 const SITE_DESCRIPTION =
   "Crea la tua squadra, acquista i giocatori reali del torneo di Basket 3vs3 di Amantea e scala la classifica giornata dopo giornata.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: SITE_TITLE, template: "%s · Fanta3v3 Amantea" },
+  title: { default: SITE_TITLE, template: "%s · Fanta SouthJam" },
   description: SITE_DESCRIPTION,
-  keywords: ["fanta3v3", "amantea", "basket 3vs3", "fantabasket", "torneo south jam", "streetball calabria"],
-  applicationName: "Fanta3v3 Amantea",
-  authors: [{ name: "Fanta3v3 Amantea" }],
+  keywords: ["fanta southjam", "fanta3v3", "amantea", "basket 3vs3", "fantabasket", "torneo south jam", "streetball calabria"],
+  applicationName: "Fanta SouthJam",
+  authors: [{ name: "Fanta SouthJam" }],
   openGraph: {
     type: "website",
     locale: "it_IT",
     url: SITE_URL,
-    siteName: "Fanta3v3 Amantea",
+    siteName: "Fanta SouthJam",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },

@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { safeRedirectPath } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
@@ -30,7 +31,7 @@ export function LoginForm() {
     try {
       await signIn(values);
       toast.success("Bentornato!");
-      router.push(searchParams.get("redirectTo") || "/dashboard");
+      router.push(safeRedirectPath(searchParams.get("redirectTo")));
       router.refresh();
     } catch (error) {
       toast.error("Accesso non riuscito", { description: translateAuthError(error) });

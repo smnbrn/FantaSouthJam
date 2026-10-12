@@ -27,14 +27,20 @@ export function RosterManager({
   roster,
   rosterMaxStarters,
   marketOpen,
+  liveMatchdayTitle,
 }: {
   team: FantasyTeam;
   roster: RosterEntry[];
   rosterMaxStarters: number;
   marketOpen: boolean;
+  /** Titolo della giornata in corso, se c'è: la formazione è congelata finché non si chiude. */
+  liveMatchdayTitle: string | null;
 }) {
   const router = useRouter();
-  const canEdit = marketOpen && !team.is_locked;
+  // Mercato (acquisti/vendite) e formazione hanno regole diverse, verificate anche dal database:
+  // si compra e vende solo a mercato aperto, i titolari si cambiano sempre tranne durante una giornata.
+  const canTrade = marketOpen && !team.is_locked;
+  const canEditLineup = liveMatchdayTitle === null;
 
   const [starterIds, setStarterIds] = React.useState<Set<string>>(
     () => new Set(roster.filter((r) => r.is_starter).map((r) => r.player_id))
@@ -96,17 +102,18 @@ export function RosterManager({
 
   return (
     <Card>
-      <CardHeader className="flex-row items-center justify-between space-y-0">
+      <CardHeader className="flex flex-col gap-3 space-y-0 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <CardTitle>Rosa</CardTitle>
           <CardDescription>
-            {canEdit
+            {canEditLineup
               ? `Seleziona fino a ${rosterMaxStarters} titolari: solo loro segnano punti in giornata.`
-              : "Il mercato è chiuso: la rosa non è più modificabile."}
+              : `${liveMatchdayTitle} è in corso: la formazione è bloccata fino alla chiusura.`}
+            {!canTrade && " Il mercato è chiuso: acquisti e vendite riapriranno più avanti."}
           </CardDescription>
         </div>
-        {canEdit && (
-          <Button size="sm" onClick={saveLineup} loading={savingLineup} disabled={!lineupDirty}>
+        {canEditLineup && (
+          <Button size="sm" className="shrink-0 self-start sm:self-auto" onClick={saveLineup} loading={savingLineup} disabled={!lineupDirty}>
             Salva formazione
           </Button>
         )}
@@ -122,7 +129,7 @@ export function RosterManager({
               const isStarter = starterIds.has(entry.player_id);
               return (
                 <li key={entry.id} className="flex items-center gap-3 py-3">
-                  {canEdit && (
+                  {canEditLineup && (
                     <button
                       type="button"
                       onClick={() => toggleStarter(entry.player_id)}
@@ -143,12 +150,12 @@ export function RosterManager({
                       {entry.player.real_team} · {entry.purchase_price} cr.
                     </p>
                   </div>
-                  {!canEdit && (
+                  {!canEditLineup && (
                     <Badge variant={entry.is_starter ? "default" : "outline"}>
                       {entry.is_starter ? "Titolare" : "Riserva"}
                     </Badge>
                   )}
-                  {canEdit && (
+                  {canTrade && (
                     <Button
                       variant="ghost"
                       size="icon"

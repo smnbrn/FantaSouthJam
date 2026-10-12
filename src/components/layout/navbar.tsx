@@ -49,7 +49,7 @@ export function Navbar() {
   async function handleLogout() {
     const supabase = createClient();
     await supabase.auth.signOut();
-    toast.success("Disconnesso", { description: "A presto su Fanta3v3 Amantea!" });
+    toast.success("Disconnesso", { description: "A presto su Fanta SouthJam!" });
     router.push("/");
     router.refresh();
   }
@@ -62,10 +62,10 @@ export function Navbar() {
       )}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2 text-primary" aria-label="Fanta3v3 Amantea, torna alla home">
+        <Link href="/" className="flex items-center gap-2 text-primary" aria-label="Fanta SouthJam, torna alla home">
           <BasketballMark />
           <span className="font-display text-lg tracking-wide text-foreground">
-            FANTA<span className="text-primary">3V3</span> AMANTEA
+            FANTA <span className="text-primary">SOUTHJAM</span>
           </span>
         </Link>
 

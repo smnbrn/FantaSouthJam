@@ -15,7 +15,13 @@ function Digit({ value, label }: { value: number; label: string }) {
   );
 }
 
-export function Countdown({ targetDate }: { targetDate: string | Date | null }) {
+export function Countdown({
+  targetDate,
+  pastMessage = "🏀 Il torneo è iniziato!",
+}: {
+  targetDate: string | Date | null;
+  pastMessage?: string;
+}) {
   if (!targetDate) {
     return (
       <div className="scoreboard inline-flex items-center rounded-xl px-6 py-4">
@@ -24,16 +30,16 @@ export function Countdown({ targetDate }: { targetDate: string | Date | null }) 
     );
   }
 
-  return <CountdownDigits targetDate={targetDate} />;
+  return <CountdownDigits targetDate={targetDate} pastMessage={pastMessage} />;
 }
 
-function CountdownDigits({ targetDate }: { targetDate: string | Date }) {
+function CountdownDigits({ targetDate, pastMessage }: { targetDate: string | Date; pastMessage: string }) {
   const { days, hours, minutes, seconds, isPast, mounted } = useCountdown(targetDate);
 
   if (isPast && mounted) {
     return (
       <div className="scoreboard inline-flex items-center rounded-xl px-6 py-4">
-        <p className="scoreboard-digit text-base sm:text-lg">🏀 Il torneo è iniziato!</p>
+        <p className="scoreboard-digit text-base sm:text-lg">{pastMessage}</p>
       </div>
     );
   }

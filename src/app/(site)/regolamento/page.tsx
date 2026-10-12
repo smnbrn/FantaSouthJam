@@ -4,7 +4,7 @@ import { getSettings } from "@/services/settings-service";
 
 export const metadata = {
   title: "Regolamento",
-  description: "Il regolamento ufficiale di Fanta3v3 Amantea.",
+  description: "Il regolamento ufficiale di Fanta SouthJam.",
 };
 
 export default async function RegolamentoPage() {

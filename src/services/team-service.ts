@@ -73,26 +73,18 @@ export function getRosterValue(roster: RosterEntry[]): number {
   return roster.reduce((sum, entry) => sum + entry.player.cost, 0);
 }
 
+/**
+ * Crea la squadra dell'utente loggato tramite la funzione Postgres
+ * `create_team`: budget iniziale, unicità del nome e stato delle iscrizioni
+ * sono decisi dal database, non dal client.
+ */
 export async function createTeam(
   supabase: SupabaseClient<Database>,
-  params: { userId: string; teamName: string; budgetInitial: number }
+  teamName: string
 ): Promise<{ team: FantasyTeam | null; error: string | null }> {
-  const { data, error } = await supabase
-    .from("fantasy_teams")
-    .insert({
-      user_id: params.userId,
-      team_name: params.teamName,
-      budget_initial: params.budgetInitial,
-      budget_remaining: params.budgetInitial,
-    })
-    .select()
-    .single();
-
+  const { data, error } = await supabase.rpc("create_team", { p_team_name: teamName });
   if (error) {
-    if (error.code === "23505") {
-      return { team: null, error: "Questo nome squadra è già stato scelto da qualcun altro." };
-    }
-    return { team: null, error: "Impossibile creare la squadra. Riprova." };
+    return { team: null, error: translateTeamError(error.message) };
   }
   return { team: data, error: null };
 }
@@ -136,9 +128,10 @@ export async function setStarters(
 /** Traduce i messaggi delle funzioni Postgres (già in italiano) e gli errori generici di rete. */
 export function translateTeamError(message: string | null): string {
   if (!message) return "Si è verificato un errore imprevisto. Riprova.";
-  // I messaggi delle funzioni purchase_player/sell_player/set_starters sono già in italiano
-  // (vedi supabase/migrations/0001_init.sql); Postgres li restituisce preceduti a volte da
-  // un prefisso tecnico che rimuoviamo per mostrarli così come sono all'utente.
-  const match = message.match(/^(?:.*:\s*)?(.+)$/);
-  return match?.[1] ?? message;
+  // I messaggi delle funzioni Postgres (create_team, purchase_player, ...) sono già in
+  // italiano e PostgREST li restituisce così come sono. Rimuoviamo solo un eventuale
+  // prefisso tecnico in inglese (es. "ERROR: "), senza toccare i ":" del messaggio.
+  const cleaned = message.replace(/^(?:ERROR|P0001):\s*/i, "").trim();
+  if (/failed to fetch|network/i.test(cleaned)) return "Connessione assente. Controlla la rete e riprova.";
+  return cleaned || "Si è verificato un errore imprevisto. Riprova.";
 }

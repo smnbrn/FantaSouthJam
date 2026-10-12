@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
 
-export function CreateTeamForm({ userId, budgetInitial }: { userId: string; budgetInitial: number }) {
+export function CreateTeamForm({ budgetInitial }: { budgetInitial: number }) {
   const router = useRouter();
   const [submitting, setSubmitting] = React.useState(false);
 
@@ -27,14 +27,16 @@ export function CreateTeamForm({ userId, budgetInitial }: { userId: string; budg
   async function onSubmit(values: CreateTeamInput) {
     setSubmitting(true);
     const supabase = createClient();
-    const { error } = await createTeam(supabase, { userId, teamName: values.teamName, budgetInitial });
+    const { team, error } = await createTeam(supabase, values.teamName);
     setSubmitting(false);
 
     if (error) {
       form.setError("teamName", { message: error });
       return;
     }
-    toast.success("Squadra creata!", { description: `Hai ${budgetInitial} crediti da spendere al mercato.` });
+    toast.success("Squadra creata!", {
+      description: `Hai ${team?.budget_initial ?? budgetInitial} crediti da spendere al mercato.`,
+    });
     router.push("/mercato");
     router.refresh();
   }
