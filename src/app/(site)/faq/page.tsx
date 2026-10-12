@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
   title: "FAQ",
-  description: "Le domande più frequenti su Fanta3v3 Amantea: budget, mercato, punteggi e regole del gioco.",
+  description: "Le domande più frequenti su Fanta SouthJam: budget, mercato, punteggi e regole del gioco.",
 };
 
 function getFaqs(matchdays: number) {

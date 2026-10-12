@@ -68,18 +68,21 @@ export async function getAllBonusTypes(supabase: SupabaseClient<Database>): Prom
   return data;
 }
 
-export async function assignScoreEvent(
+/** Assegna a un giocatore più bonus/malus in un colpo solo (un'unica insert: o tutti o nessuno). */
+export async function assignScoreEvents(
   supabase: SupabaseClient<Database>,
-  params: { matchdayId: string; playerId: string; bonusTypeId: string; quantity: number }
+  params: { matchdayId: string; playerId: string; items: { bonusTypeId: string; quantity: number }[] }
 ): Promise<{ error: string | null }> {
   const { data: userData } = await supabase.auth.getUser();
-  const { error } = await supabase.from("player_score_events").insert({
-    matchday_id: params.matchdayId,
-    player_id: params.playerId,
-    bonus_type_id: params.bonusTypeId,
-    quantity: params.quantity,
-    created_by: userData.user?.id,
-  });
+  const { error } = await supabase.from("player_score_events").insert(
+    params.items.map((item) => ({
+      matchday_id: params.matchdayId,
+      player_id: params.playerId,
+      bonus_type_id: item.bonusTypeId,
+      quantity: item.quantity,
+      created_by: userData.user?.id,
+    }))
+  );
   return { error: error?.message ?? null };
 }
 

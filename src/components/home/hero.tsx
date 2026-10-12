@@ -2,8 +2,9 @@ import Link from "next/link";
 import { ArrowRight, ScrollText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Countdown } from "@/components/home/countdown";
+import type { HeroCountdown } from "@/lib/matchday-schedule";
 
-export function Hero({ tournamentStartDate, matchdays }: { tournamentStartDate: string | null; matchdays: number }) {
+export function Hero({ countdown, matchdays }: { countdown: HeroCountdown; matchdays: number }) {
   return (
     <section className="court-arc-bg relative overflow-hidden">
       {/* Motivo grafico: arco da tre punti di un campo da basket, in filigrana. */}
@@ -65,10 +66,23 @@ export function Hero({ tournamentStartDate, matchdays }: { tournamentStartDate: 
         </div>
 
         <div className="animate-fade-up mt-14" style={{ animationDelay: "320ms" }}>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Il torneo è terminato, South Jam 2027 inizia tra
-          </p>
-          <Countdown targetDate={tournamentStartDate} />
+          {countdown.kind === "matchday-live" ? (
+            <div className="scoreboard inline-flex items-center rounded-xl px-6 py-4">
+              <p className="scoreboard-digit text-base sm:text-lg">🏀 {countdown.matchdayTitle} in corso</p>
+            </div>
+          ) : (
+            <>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                {countdown.kind === "matchday"
+                  ? "Inizio giornata successiva tra"
+                  : "Il torneo è terminato, South Jam 2027 inizia tra"}
+              </p>
+              <Countdown
+                targetDate={countdown.targetDate}
+                pastMessage={countdown.kind === "matchday" ? "🏀 La giornata sta per iniziare!" : undefined}
+              />
+            </>
+          )}
         </div>
       </div>
     </section>

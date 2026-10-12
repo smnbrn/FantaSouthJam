@@ -40,7 +40,7 @@ export function RegisterForm() {
       const data = await signUp(values);
       // Se la conferma email è disabilitata nel progetto Supabase, arriva già una sessione attiva.
       if (data.session) {
-        toast.success("Account creato!", { description: "Benvenuto su Fanta3v3 Amantea." });
+        toast.success("Account creato!", { description: "Benvenuto su Fanta SouthJam." });
         router.push("/squadra");
         router.refresh();
       } else {

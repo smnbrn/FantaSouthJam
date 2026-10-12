@@ -7,7 +7,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <Link href="/" className="mb-8 flex items-center gap-2 text-primary" aria-label="Torna alla home">
         <BasketballMark />
         <span className="font-display text-lg tracking-wide text-foreground">
-          FANTA<span className="text-primary">3V3</span> AMANTEA
+          FANTA <span className="text-primary">SOUTHJAM</span>
         </span>
       </Link>
       <div className="w-full max-w-md">{children}</div>

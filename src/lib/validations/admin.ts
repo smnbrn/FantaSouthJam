@@ -9,12 +9,21 @@ export const playerSchema = z.object({
 });
 export type PlayerInput = z.infer<typeof playerSchema>;
 
-export const assignScoreEventSchema = z.object({
+export const MAX_BONUS_QUANTITY = 20;
+
+/** Un giocatore e, per ogni bonus/malus ricevuto, quante volte. Almeno un bonus con quantità > 0. */
+export const assignScoreEventsSchema = z.object({
   playerId: z.string().min(1, "Seleziona un giocatore"),
-  bonusTypeId: z.string().min(1, "Seleziona un bonus/malus"),
-  quantity: z.coerce.number().int("Deve essere un numero intero").min(1, "Almeno 1").max(20, "Massimo 20"),
+  items: z
+    .array(
+      z.object({
+        bonusTypeId: z.string().min(1),
+        quantity: z.number().int().min(1).max(MAX_BONUS_QUANTITY, `Massimo ${MAX_BONUS_QUANTITY} per bonus`),
+      })
+    )
+    .min(1, "Scegli almeno un bonus/malus"),
 });
-export type AssignScoreEventInput = z.infer<typeof assignScoreEventSchema>;
+export type AssignScoreEventsInput = z.infer<typeof assignScoreEventsSchema>;
 
 export const matchdaySchema = z.object({
   status: z.enum(["upcoming", "open", "closed"]),

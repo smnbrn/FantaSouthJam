@@ -15,6 +15,7 @@ const FOOTER_LINKS = [
     links: [
       { href: "/regolamento", label: "Regolamento" },
       { href: "/faq", label: "FAQ" },
+      { href: "/crediti", label: "Crediti" },
     ],
   },
   {
@@ -34,7 +35,7 @@ export function Footer() {
           <div className="flex items-center gap-2 text-primary">
             <BasketballMark />
             <span className="font-display text-lg tracking-wide text-foreground">
-              FANTA<span className="text-primary">3V3</span> AMANTEA
+              FANTA <span className="text-primary">SOUTHJAM</span>
             </span>
           </div>
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">
@@ -59,7 +60,7 @@ export function Footer() {
         ))}
       </div>
       <div className="border-t border-border px-4 py-6 text-center text-xs text-muted-foreground sm:px-6">
-        © {new Date().getFullYear()} Fanta3v3 Amantea. Progetto amatoriale, non affiliato alla NBA né ad alcuna lega
+        © {new Date().getFullYear()} Fanta SouthJam. Progetto amatoriale, non affiliato alla NBA né ad alcuna lega
         professionistica.
       </div>
     </footer>

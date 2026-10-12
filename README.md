@@ -1,4 +1,4 @@
-# 🏀 FantaSouthJam — Fanta3v3 Amantea
+# 🏀 Fanta SouthJam
 
 Web app di **fantabasket** costruita per il torneo di basket 3vs3 di Amantea. A differenza dei fantasy classici,
 i giocatori acquistabili sono i **partecipanti reali del torneo**: ogni utente crea la propria squadra con un
