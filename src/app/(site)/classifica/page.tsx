@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { getLeaderboard } from "@/services/ranking-service";
+import { getMyTeam } from "@/services/team-service";
 import { Leaderboard } from "@/components/classifica/leaderboard";
 
 export const metadata = {
@@ -9,7 +10,8 @@ export const metadata = {
 
 export default async function ClassificaPage() {
   const supabase = await createClient();
-  const rows = await getLeaderboard(supabase);
+  const [rows, { data: userData }] = await Promise.all([getLeaderboard(supabase), supabase.auth.getUser()]);
+  const myTeam = userData.user ? await getMyTeam(supabase, userData.user.id) : null;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
@@ -23,7 +25,7 @@ export default async function ClassificaPage() {
           Nessuna squadra iscritta ancora.
         </p>
       ) : (
-        <Leaderboard initialRows={rows} />
+        <Leaderboard initialRows={rows} myTeamId={myTeam?.id ?? null} />
       )}
     </div>
   );
