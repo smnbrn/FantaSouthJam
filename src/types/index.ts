@@ -12,6 +12,8 @@ export type Ranking = Database["public"]["Tables"]["rankings"]["Row"];
 export type Transaction = Database["public"]["Tables"]["transactions"]["Row"];
 export type Setting = Database["public"]["Tables"]["settings"]["Row"];
 export type AdminLog = Database["public"]["Tables"]["admin_logs"]["Row"];
+export type HallOfFameEntry = Database["public"]["Tables"]["hall_of_fame"]["Row"];
+export type ChatMessage = Database["public"]["Tables"]["chat_messages"]["Row"];
 
 export type CurrentRanking = Database["public"]["Views"]["current_rankings"]["Row"];
 

@@ -281,6 +281,52 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["settings"]["Insert"]>;
         Relationships: [];
       };
+      hall_of_fame: {
+        Row: {
+          id: string;
+          year: number;
+          winner_team_name: string;
+          winner_coach: string | null;
+          winner_points: number | null;
+          top_player_name: string;
+          top_player_team: string | null;
+          top_player_points: number | null;
+          notes: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          year: number;
+          winner_team_name: string;
+          winner_coach?: string | null;
+          winner_points?: number | null;
+          top_player_name: string;
+          top_player_team?: string | null;
+          top_player_points?: number | null;
+          notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["hall_of_fame"]["Insert"]>;
+        Relationships: [];
+      };
+      chat_messages: {
+        Row: {
+          id: string;
+          user_id: string;
+          content: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          content: string;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["chat_messages"]["Insert"]>;
+        Relationships: [];
+      };
       admin_logs: {
         Row: {
           id: string;
@@ -335,6 +381,14 @@ export interface Database {
       set_starters: {
         Args: { p_fantasy_team_id: string; p_player_ids: string[] };
         Returns: undefined;
+      };
+      archive_season: {
+        Args: { p_year: number };
+        Returns: Database["public"]["Tables"]["hall_of_fame"]["Row"];
+      };
+      can_use_chat: {
+        Args: Record<PropertyKey, never>;
+        Returns: boolean;
       };
       is_admin: {
         Args: Record<PropertyKey, never>;

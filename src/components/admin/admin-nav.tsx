@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Shirt, CalendarCog, Settings, Users, Shield } from "lucide-react";
+import { LayoutDashboard, Shirt, CalendarCog, Settings, Users, Shield, Crown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ADMIN_LINKS = [
@@ -12,6 +12,7 @@ const ADMIN_LINKS = [
   { href: "/admin/impostazioni", label: "Impostazioni", icon: Settings },
   { href: "/admin/utenti", label: "Utenti", icon: Users },
   { href: "/admin/squadre", label: "Squadre", icon: Shield },
+  { href: "/admin/hall-of-fame", label: "Hall of Fame", icon: Crown },
 ];
 
 export function AdminNav() {

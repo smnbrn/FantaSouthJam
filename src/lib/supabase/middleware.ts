@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import type { Database } from "@/types/database.types";
 
-const PROTECTED_PREFIXES = ["/dashboard", "/squadra", "/mercato", "/profilo", "/admin"];
+const PROTECTED_PREFIXES = ["/dashboard", "/squadra", "/mercato", "/profilo", "/admin", "/chat"];
 const ADMIN_PREFIX = "/admin";
 const AUTH_PAGES = ["/login", "/registrati", "/recupera-password", "/reset-password"];
 
