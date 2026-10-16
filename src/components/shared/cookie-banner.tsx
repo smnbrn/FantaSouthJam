@@ -35,8 +35,8 @@ export function CookieBanner() {
           <DialogHeader>
             <DialogTitle>Cookie di statistica</DialogTitle>
             <DialogDescription>
-              Con il tuo consenso usiamo Google Analytics per capire come viene usato il sito. Se rifiuti, puoi usare
-              Fanta SouthJam esattamente allo stesso modo.
+              Con il tuo consenso usiamo Google Analytics per capire come viene usato il sito. Scegli e inizia a
+              giocare.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
