@@ -1,31 +1,55 @@
 "use client";
 
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { clearAnalyticsCookies, setConsent, useConsent } from "@/lib/cookie-consent";
 
-// Banner per i cookie di statistica (Google Analytics). Compare finché l'utente
-// non sceglie; i cookie necessari al login non dipendono da questa scelta.
+// Finestra a tutto schermo per i cookie di statistica (Google Analytics).
+// Resta aperta finché l'utente non sceglie: non ha il pulsante "X" e non si chiude
+// con Esc o cliccando fuori. "Rifiuta" e "Accetta" hanno lo stesso peso grafico e
+// con "Rifiuta" il sito funziona allo stesso modo. I cookie necessari al login
+// non dipendono da questa scelta.
 export function CookieBanner() {
   const consent = useConsent();
-  if (consent !== null) return null;
 
   return (
-    <div role="dialog" aria-label="Preferenze cookie" className="fixed inset-x-0 bottom-0 z-50 p-4 sm:p-6">
-      <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-2xl border border-border bg-surface p-5 shadow-xl sm:flex-row sm:items-center">
-        <p className="flex-1 text-sm text-foreground/80">
-          Usiamo Google Analytics, con cookie di statistica, solo se acconsenti. Il sito funziona allo stesso modo
-          anche se rifiuti.
-        </p>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => setConsent("denied")}>
-            Rifiuta
-          </Button>
-          <Button size="sm" onClick={() => setConsent("granted")}>
-            Accetta
-          </Button>
-        </div>
-      </div>
-    </div>
+    <Dialog open={consent === null}>
+      <DialogPortal>
+        <DialogOverlay />
+        <DialogPrimitive.Content
+          onEscapeKeyDown={(event) => event.preventDefault()}
+          onPointerDownOutside={(event) => event.preventDefault()}
+          onInteractOutside={(event) => event.preventDefault()}
+          className="fixed left-1/2 top-1/2 z-50 grid w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 gap-5 rounded-2xl border border-border bg-surface p-6 shadow-xl"
+        >
+          <DialogHeader>
+            <DialogTitle>Cookie di statistica</DialogTitle>
+            <DialogDescription>
+              Con il tuo consenso usiamo Google Analytics per capire come viene usato il sito. Se rifiuti, puoi usare
+              Fanta SouthJam esattamente allo stesso modo.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="secondary" onClick={() => setConsent("denied")}>
+              Rifiuta
+            </Button>
+            <Button variant="secondary" onClick={() => setConsent("granted")}>
+              Accetta
+            </Button>
+          </DialogFooter>
+        </DialogPrimitive.Content>
+      </DialogPortal>
+    </Dialog>
   );
 }
 
