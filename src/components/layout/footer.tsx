@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BasketballMark } from "@/components/shared/basketball-mark";
+import { CookieSettingsButton } from "@/components/shared/cookie-banner";
 
 const FOOTER_LINKS = [
   {
@@ -62,6 +63,9 @@ export function Footer() {
       <div className="border-t border-border px-4 py-6 text-center text-xs text-muted-foreground sm:px-6">
         © {new Date().getFullYear()} Fanta SouthJam. Progetto amatoriale, non affiliato alla NBA né ad alcuna lega
         professionistica.
+        <div className="mt-2">
+          <CookieSettingsButton className="underline-offset-4 transition-colors hover:text-primary hover:underline" />
+        </div>
       </div>
     </footer>
   );

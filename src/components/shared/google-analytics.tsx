@@ -1,10 +1,14 @@
-import Script from "next/script";
+"use client";
 
-// Google Analytics 4. Si attiva solo se NEXT_PUBLIC_GA_ID è impostata
-// (es. G-XXXXXXXXXX): senza la variabile non carica nulla.
+import Script from "next/script";
+import { useConsent } from "@/lib/cookie-consent";
+
+// Google Analytics 4. Parte solo se NEXT_PUBLIC_GA_ID è impostata (es. G-XXXXXXXXXX)
+// E se l'utente ha accettato i cookie di statistica dal banner.
 export function GoogleAnalytics() {
+  const consent = useConsent();
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
-  if (!gaId) return null;
+  if (!gaId || consent !== "granted") return null;
 
   return (
     <>
