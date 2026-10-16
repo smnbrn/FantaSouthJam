@@ -27,6 +27,8 @@ const NAV_LINKS = [
   { href: "/mercato", label: "Mercato" },
   { href: "/classifica", label: "Classifica" },
   { href: "/giornate", label: "Giornate" },
+  { href: "/hall-of-fame", label: "Hall of Fame" },
+  { href: "/chat", label: "Chat" },
   { href: "/regolamento", label: "Regolamento e Premi" },
   { href: "/faq", label: "FAQ" },
 ];
@@ -69,7 +71,7 @@ export function Navbar() {
           </span>
         </Link>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-1 xl:flex">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -103,7 +105,7 @@ export function Navbar() {
             )}
           </Button>
 
-          <div className="hidden md:block">
+          <div className="hidden xl:block">
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -159,7 +161,7 @@ export function Navbar() {
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full md:hidden" aria-label="Apri il menu">
+              <Button variant="ghost" size="icon" className="rounded-full xl:hidden" aria-label="Apri il menu">
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>
