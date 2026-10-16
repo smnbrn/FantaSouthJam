@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { GoogleAnalytics } from "@/components/shared/google-analytics";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fanta3v3amantea.it";
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
           <Toaster />
         </ThemeProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   );
