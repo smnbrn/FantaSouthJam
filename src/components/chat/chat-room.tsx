@@ -38,10 +38,15 @@ export function ChatRoom({
   initialMessages,
   currentUserId,
   isAdmin,
+  headerAction,
+  className,
 }: {
   initialMessages: ChatMessageWithAuthor[];
   currentUserId: string;
   isAdmin: boolean;
+  /** Elemento extra a destra dell'intestazione (es. il pulsante "chiudi" del popup). */
+  headerAction?: React.ReactNode;
+  className?: string;
 }) {
   const supabase = React.useMemo(() => createClient(), []);
   const [messages, setMessages] = React.useState(initialMessages);
@@ -148,13 +153,16 @@ export function ChatRoom({
   }
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface">
-      <div className="flex items-center justify-between border-b border-border px-5 py-3">
+    <div className={cn("flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface", className)}>
+      <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3">
         <p className="font-display text-lg tracking-wide">Chat del torneo</p>
-        <span className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
-          <Radio className={cn("size-3.5", live && "text-success")} />
-          {live ? "Live" : "Connessione..."}
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+            <Radio className={cn("size-3.5", live && "text-success")} />
+            {live ? "Live" : "Connessione..."}
+          </span>
+          {headerAction}
+        </div>
       </div>
 
       <div className="relative min-h-0 flex-1">
