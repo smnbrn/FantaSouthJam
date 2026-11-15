@@ -9,7 +9,7 @@ export function TopPickedPlayers({ players }: { players: TopPickedPlayer[] }) {
     <Card className="h-fit mt-9"> {/* <-- Aggiunta la classe h-fit */}
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
-          <Flame className="size-4 text-primary" /> Più pickati
+          <Flame className="size-4 text-primary-ink" /> Più pickati
         </CardTitle>
         <CardDescription>I 5 giocatori presenti in più rose.</CardDescription>
       </CardHeader>
@@ -29,7 +29,7 @@ export function TopPickedPlayers({ players }: { players: TopPickedPlayer[] }) {
                   <p className="truncate text-sm font-semibold">{entry.player.full_name}</p>
                   <p className="truncate text-xs text-muted-foreground">{entry.player.real_team}</p>
                 </div>
-                <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
+                <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary-ink">
                   {entry.pickCount} squadr{entry.pickCount === 1 ? "a" : "e"}
                 </span>
               </li>

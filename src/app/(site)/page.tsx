@@ -12,8 +12,8 @@ export default async function HomePage() {
   const [settings, allMatchdays, { count: teams }, { count: players }] = await Promise.all([
     getSettings(supabase),
     getAllMatchdays(supabase),
-    supabase.from("fantasy_teams").select("*", { count: "exact", head: true }),
-    supabase.from("players").select("*", { count: "exact", head: true }).eq("is_active", true),
+    supabase.from("fantasy_teams").select("id", { count: "exact", head: true }),
+    supabase.from("players").select("id", { count: "exact", head: true }).eq("is_active", true),
   ]);
 
   return (

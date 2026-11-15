@@ -13,10 +13,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (profile?.role !== "admin") redirect("/dashboard");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <div className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-primary">Pannello amministratore</p>
-        <h1 className="mt-1 font-display text-3xl tracking-wide sm:text-4xl">Gestione torneo</h1>
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-14">
+      <div className="mb-5 sm:mb-8">
+        <p className="text-label uppercase text-primary-ink">Pannello amministratore</p>
+        <h1 className="mt-1 font-display text-display-lg tracking-wide">Gestione torneo</h1>
       </div>
       <AdminNav />
       <div className="mt-6">{children}</div>

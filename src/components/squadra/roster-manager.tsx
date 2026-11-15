@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Star, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { ShoppingBag, Star, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import type { FantasyTeam, RosterEntry } from "@/types";
@@ -13,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import {
   Dialog,
   DialogContent,
@@ -104,7 +106,12 @@ export function RosterManager({
     <Card>
       <CardHeader className="flex flex-col gap-3 space-y-0 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <CardTitle>Rosa</CardTitle>
+          <CardTitle>
+            Rosa{" "}
+            <span className="font-sans text-sm font-normal text-muted-foreground">
+              · {starterIds.size}/{rosterMaxStarters} titolari
+            </span>
+          </CardTitle>
           <CardDescription>
             {canEditLineup
               ? `Seleziona fino a ${rosterMaxStarters} titolari: solo loro segnano punti in giornata.`
@@ -120,22 +127,29 @@ export function RosterManager({
       </CardHeader>
       <CardContent>
         {roster.length === 0 ? (
-          <p className="py-8 text-center text-sm text-muted-foreground">
-            Nessun giocatore in rosa. Vai al mercato per iniziare.
-          </p>
+          <EmptyState
+            icon={ShoppingBag}
+            title="Nessun giocatore in rosa"
+            description="Vai al mercato per comprare i primi giocatori."
+            className="border-0 bg-transparent py-6"
+          >
+            <Button size="sm" asChild>
+              <Link href="/mercato">Vai al mercato</Link>
+            </Button>
+          </EmptyState>
         ) : (
           <ul className="flex flex-col divide-y divide-border">
             {roster.map((entry) => {
               const isStarter = starterIds.has(entry.player_id);
               return (
-                <li key={entry.id} className="flex items-center gap-3 py-3">
+                <li key={entry.id} className="flex items-center gap-2 py-2">
                   {canEditLineup && (
                     <button
                       type="button"
                       onClick={() => toggleStarter(entry.player_id)}
                       aria-pressed={isStarter}
                       aria-label={isStarter ? "Rendi riserva" : "Rendi titolare"}
-                      className="shrink-0 text-muted-foreground transition-colors hover:text-primary"
+                      className="-ml-2 flex size-11 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-[color,transform] duration-200 hover:text-primary-ink active:scale-90"
                     >
                       <Star className={isStarter ? "size-5 fill-primary text-primary" : "size-5"} />
                     </button>
@@ -151,7 +165,7 @@ export function RosterManager({
                     </p>
                   </div>
                   {!canEditLineup && (
-                    <Badge variant={entry.is_starter ? "default" : "outline"}>
+                    <Badge variant={entry.is_starter ? "soft" : "outline"}>
                       {entry.is_starter ? "Titolare" : "Riserva"}
                     </Badge>
                   )}
@@ -159,7 +173,7 @@ export function RosterManager({
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="shrink-0 text-muted-foreground hover:text-destructive"
+                      className="-mr-2 shrink-0 text-muted-foreground hover:text-destructive"
                       onClick={() => setConfirmSellId(entry.player_id)}
                       aria-label={`Vendi ${entry.player.full_name}`}
                     >

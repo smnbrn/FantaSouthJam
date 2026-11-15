@@ -1,6 +1,7 @@
 import { CalendarDays } from "lucide-react";
 import type { Matchday } from "@/types";
 import { formatDate } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const STATUS_LABEL: Record<Matchday["status"], string> = {
@@ -14,7 +15,7 @@ export function NextMatchdayCard({ matchday }: { matchday: Matchday | null }) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
-          <CalendarDays className="size-4 text-primary" /> Prossima giornata
+          <CalendarDays className="size-4 text-primary-ink" /> Prossima giornata
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -26,9 +27,7 @@ export function NextMatchdayCard({ matchday }: { matchday: Matchday | null }) {
                 <p className="text-sm text-muted-foreground">{formatDate(matchday.match_date)}</p>
               )}
             </div>
-            <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-              {STATUS_LABEL[matchday.status]}
-            </span>
+            <Badge variant={matchday.status === "open" ? "default" : "soft"}>{STATUS_LABEL[matchday.status]}</Badge>
           </div>
         ) : (
           <p className="text-sm text-muted-foreground">Il torneo è terminato: grazie per aver giocato!</p>

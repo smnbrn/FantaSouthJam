@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fanta3v3amantea.it";
+import { SITE_URL } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: "*", allow: "/", disallow: ["/admin", "/dashboard", "/profilo"] }],
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/admin", "/dashboard", "/profilo", "/squadra", "/mercato", "/chat", "/auth", "/reset-password"] }],
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

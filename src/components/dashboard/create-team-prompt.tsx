@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 export function CreateTeamPrompt({ budgetInitial }: { budgetInitial: number }) {
   return (
     <div className="court-arc-bg rounded-3xl border border-border bg-surface p-8 text-center sm:p-12">
-      <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+      <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary-ink">
         <Users className="size-6" />
       </div>
       <h2 className="mt-5 font-display text-2xl tracking-wide sm:text-3xl">Non hai ancora una squadra</h2>

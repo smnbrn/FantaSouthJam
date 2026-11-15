@@ -37,7 +37,7 @@ export function HowItWorks() {
             <span className="font-display text-4xl text-primary/20 transition-colors group-hover:text-primary/40">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <div className="mt-3 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <div className="mt-3 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary-ink">
               <step.icon className="size-5" />
             </div>
             <h3 className="mt-4 font-display text-lg tracking-wide">{step.title}</h3>

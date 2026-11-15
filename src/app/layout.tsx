@@ -3,12 +3,9 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { GoogleAnalytics } from "@/components/shared/google-analytics";
 import { CookieBanner } from "@/components/shared/cookie-banner";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fanta3v3amantea.it";
-const SITE_TITLE = "Fanta SouthJam — Il fantabasket del torneo South Jam";
-const SITE_DESCRIPTION =
-  "Crea la tua squadra, acquista i giocatori reali del torneo di Basket 3vs3 di Amantea e scala la classifica giornata dopo giornata.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -43,6 +40,7 @@ export const viewport: Viewport = {
   ],
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 // Applica subito il tema salvato (o quello di sistema) PRIMA dell'idratazione
@@ -67,7 +65,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {/* eslint-disable-next-line @next/next/no-page-custom-font -- regola pensata per Pages Router;
             in App Router il <head> del root layout è il posto corretto per i font, vedi README */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>

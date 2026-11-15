@@ -12,14 +12,32 @@ export async function getSettings(
   const { data, error } = await supabase.from("settings").select("key, value");
   if (error || !data) return DEFAULT_SETTINGS;
 
-  const map = Object.fromEntries(data.map((row) => [row.key, row.value]));
+  // I valori arrivano come JSON generico: si controlla il tipo vero invece di fidarsi
+  // di un cast, e se una chiave manca o ha un tipo inatteso vale il default.
+  const map = new Map<string, unknown>(data.map((row) => [row.key, row.value]));
+  const bool = (key: string, fallback: boolean) => {
+    const value = map.get(key);
+    return typeof value === "boolean" ? value : fallback;
+  };
+  const num = (key: string, fallback: number) => {
+    const value = map.get(key);
+    return typeof value === "number" && Number.isFinite(value) ? value : fallback;
+  };
+  const text = (key: string, fallback: string) => {
+    const value = map.get(key);
+    return typeof value === "string" ? value : fallback;
+  };
+  const startDate = map.get("tournament_start_date");
+
   return {
-    market_open: (map.market_open as boolean) ?? DEFAULT_SETTINGS.market_open,
-    registration_open: (map.registration_open as boolean) ?? DEFAULT_SETTINGS.registration_open,
-    roster_max_size: (map.roster_max_size as number) ?? DEFAULT_SETTINGS.roster_max_size,
-    roster_max_starters: (map.roster_max_starters as number) ?? DEFAULT_SETTINGS.roster_max_starters,
-    budget_initial: (map.budget_initial as number) ?? DEFAULT_SETTINGS.budget_initial,
-    tournament_start_date: (map.tournament_start_date as string | null) ?? DEFAULT_SETTINGS.tournament_start_date,
-    rules_text: (map.rules_text as string) ?? DEFAULT_SETTINGS.rules_text,
+    market_open: bool("market_open", DEFAULT_SETTINGS.market_open),
+    registration_open: bool("registration_open", DEFAULT_SETTINGS.registration_open),
+    roster_max_size: num("roster_max_size", DEFAULT_SETTINGS.roster_max_size),
+    roster_max_starters: num("roster_max_starters", DEFAULT_SETTINGS.roster_max_starters),
+    budget_initial: num("budget_initial", DEFAULT_SETTINGS.budget_initial),
+    // Stringa vuota = data non impostata (vedi updateSettings): per l'app vale come null.
+    tournament_start_date:
+      typeof startDate === "string" && startDate !== "" ? startDate : DEFAULT_SETTINGS.tournament_start_date,
+    rules_text: text("rules_text", DEFAULT_SETTINGS.rules_text),
   };
 }

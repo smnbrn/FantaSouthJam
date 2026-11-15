@@ -52,7 +52,7 @@ function ArchiveSeasonCard({ existingYears }: { existingYears: number[] }) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
-          <Archive className="size-4 text-primary" /> Archivia la stagione in corso
+          <Archive className="size-4 text-primary-ink" /> Archivia la stagione in corso
         </CardTitle>
         <CardDescription>
           Salva automaticamente la squadra prima in classifica e il giocatore con più fantapunti. Fallo a torneo

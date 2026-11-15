@@ -15,32 +15,32 @@ export default async function AdminSquadrePage() {
     <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
       <div>
         <p className="mb-4 text-sm text-muted-foreground">{teams.length} squadre create.</p>
-        <div className="overflow-hidden rounded-2xl border border-border">
+        <div className="overflow-hidden rounded-2xl border border-border shadow-card">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-border bg-surface-muted text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                <th className="px-4 py-3">Squadra</th>
-                <th className="hidden px-4 py-3 sm:table-cell">Allenatore</th>
-                <th className="px-4 py-3 text-right">Rosa</th>
-                <th className="px-4 py-3 text-right">Crediti</th>
-                <th className="px-4 py-3 text-right">Punti</th>
-                <th className="px-4 py-3" />
+              <tr className="border-b border-border bg-surface-muted text-left text-label uppercase text-muted-foreground">
+                <th className="px-3 py-3 sm:px-4">Squadra</th>
+                <th className="hidden px-3 py-3 sm:px-4 sm:table-cell">Allenatore</th>
+                <th className="px-3 py-3 sm:px-4 text-right">Rosa</th>
+                <th className="px-3 py-3 sm:px-4 text-right">Crediti</th>
+                <th className="px-3 py-3 sm:px-4 text-right">Punti</th>
+                <th className="px-3 py-3 sm:px-4" />
               </tr>
             </thead>
             <tbody>
               {teams.map((team) => (
                 <tr key={team.id} className="border-b border-border bg-surface last:border-0">
-                  <td className="px-4 py-3 font-semibold">
+                  <td className="w-full max-w-0 break-words px-3 py-3 font-semibold sm:px-4">
                     {team.team_name} {team.is_locked && <Badge variant="outline" className="ml-1">🔒</Badge>}
                   </td>
-                  <td className="hidden px-4 py-3 text-muted-foreground sm:table-cell">{team.ownerUsername}</td>
-                  <td className="px-4 py-3 text-right text-muted-foreground">{team.rosterCount}</td>
-                  <td className="px-4 py-3 text-right text-muted-foreground">
+                  <td className="hidden px-3 py-3 sm:px-4 text-muted-foreground sm:table-cell">{team.ownerUsername}</td>
+                  <td className="px-3 py-3 sm:px-4 text-right text-muted-foreground">{team.rosterCount}</td>
+                  <td className="whitespace-nowrap px-3 py-3 text-right tabular-nums text-muted-foreground sm:px-4">
                     {team.budget_remaining}/{team.budget_initial}
                   </td>
-                  <td className="px-4 py-3 text-right font-display text-primary">{team.total_points}</td>
-                  <td className="px-4 py-3 text-right">
-                    <Link href={`/squadre/${team.id}`} target="_blank" className="text-muted-foreground hover:text-primary" aria-label={`Apri pagina pubblica di ${team.team_name}`}>
+                  <td className="px-3 py-3 sm:px-4 text-right font-display text-primary-ink">{team.total_points}</td>
+                  <td className="px-3 py-3 sm:px-4 text-right">
+                    <Link href={`/squadre/${team.id}`} target="_blank" className="-m-2 inline-flex size-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-primary-ink" aria-label={`Apri pagina pubblica di ${team.team_name}`}>
                       <ExternalLink className="size-4" />
                     </Link>
                   </td>

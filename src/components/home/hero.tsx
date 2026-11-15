@@ -30,12 +30,12 @@ export function Hero({ countdown, matchdays }: { countdown: HeroCountdown; match
       </svg>
 
       <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 pb-20 pt-16 text-center sm:px-6 sm:pt-24">
-        <span className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
+        <span className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary-ink">
           South Jam 3v3 · Amantea
         </span>
 
         <h1
-          className="animate-fade-up mt-6 max-w-3xl font-display text-5xl uppercase leading-[0.95] tracking-wide sm:text-6xl md:text-7xl"
+          className="animate-fade-up mt-6 max-w-3xl font-display text-display-xl uppercase tracking-wide"
           style={{ animationDelay: "80ms" }}
         >
           Il tuo Basket <span className="text-primary">di strada</span> parte da qui
@@ -72,7 +72,7 @@ export function Hero({ countdown, matchdays }: { countdown: HeroCountdown; match
             </div>
           ) : (
             <>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              <p className="mx-auto mb-3 max-w-[18rem] text-balance text-label uppercase text-muted-foreground sm:max-w-none">
                 {countdown.kind === "matchday"
                   ? "Inizio giornata successiva tra"
                   : "Il torneo è terminato, South Jam 2027 inizia tra"}

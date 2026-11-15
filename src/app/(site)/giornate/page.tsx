@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { getAllMatchdays, getMatchdayScores } from "@/services/matchday-service";
 import { MatchdayTabs } from "@/components/giornate/matchday-tabs";
+import { CalendarX } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 import type { MatchdayPlayerScore } from "@/types";
 
 export const metadata = {
@@ -19,14 +21,14 @@ export default async function GiornatePage() {
   });
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
-      <div className="mb-8">
-        <h1 className="font-display text-3xl tracking-wide sm:text-4xl">Giornate</h1>
+    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-14">
+      <div className="mb-5 sm:mb-8">
+        <h1 className="font-display text-display-lg tracking-wide">Giornate</h1>
         <p className="mt-1 text-muted-foreground">Punti, bonus e malus di ogni giocatore, giornata per giornata.</p>
       </div>
 
       {matchdays.length === 0 ? (
-        <p className="text-sm text-muted-foreground">Nessuna giornata configurata.</p>
+        <EmptyState icon={CalendarX} title="Nessuna giornata" description="Le giornate del torneo compariranno qui appena saranno create." />
       ) : (
         <MatchdayTabs matchdays={matchdays} scoresByMatchday={scoresByMatchday} />
       )}

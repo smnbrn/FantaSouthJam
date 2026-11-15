@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowDown, Radio, SendHorizontal, Trash2 } from "lucide-react";
+import { ArrowDown, MessagesSquare, SendHorizontal, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import type { ChatMessage } from "@/types";
@@ -17,6 +17,7 @@ import {
 } from "@/services/chat-service";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/ui/empty-state";
 
 const MAX_LENGTH = 500;
 
@@ -153,13 +154,16 @@ export function ChatRoom({
   }
 
   return (
-    <div className={cn("flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface", className)}>
+    <div className={cn("flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-card", className)}>
       <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3">
         <p className="font-display text-lg tracking-wide">Chat del torneo</p>
         <div className="flex items-center gap-3">
-          <span className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
-            <Radio className={cn("size-3.5", live && "text-success")} />
-            {live ? "Live" : "Connessione..."}
+          <span className="flex items-center gap-2 text-xs font-semibold text-muted-foreground" aria-live="polite">
+            <span className="relative flex size-2">
+              {live && <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-60" />}
+              <span className={cn("relative inline-flex size-2 rounded-full", live ? "bg-success" : "bg-muted-foreground/50")} />
+            </span>
+            {live ? "In diretta" : "Connessione…"}
           </span>
           {headerAction}
         </div>
@@ -168,9 +172,12 @@ export function ChatRoom({
       <div className="relative min-h-0 flex-1">
         <div ref={scrollRef} onScroll={handleScroll} className="h-full overflow-y-auto px-3 py-4 sm:px-5">
           {messages.length === 0 ? (
-            <p className="mt-16 text-center text-sm text-muted-foreground">
-              Nessun messaggio ancora. Rompi il ghiaccio! 🏀
-            </p>
+            <EmptyState
+              icon={MessagesSquare}
+              title="Nessun messaggio ancora"
+              description="Rompi il ghiaccio! 🏀"
+              className="mt-10 border-0 bg-transparent"
+            />
           ) : (
             <ul className="flex flex-col gap-1">
               {messages.map((m, i) => {
@@ -186,11 +193,11 @@ export function ChatRoom({
                 return (
                   <React.Fragment key={m.id}>
                     {newDay && (
-                      <li className="my-3 text-center text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      <li className="my-3 text-center text-label uppercase text-muted-foreground">
                         {dayLabel(m.created_at)}
                       </li>
                     )}
-                    <li className={cn("group flex items-end gap-2", own ? "flex-row-reverse" : "flex-row", !grouped && "mt-2")}>
+                    <li className={cn("group flex items-end gap-2 animate-in fade-in slide-in-from-bottom-1 duration-300", own ? "flex-row-reverse" : "flex-row", !grouped && "mt-2")}>
                       {!own && (
                         <Avatar className={cn("size-8 shrink-0", grouped && "invisible")}>
                           <AvatarFallback className="text-[11px]">{getInitials(m.author.username)}</AvatarFallback>
@@ -201,7 +208,7 @@ export function ChatRoom({
                           <p className="mb-0.5 px-1 text-xs">
                             <span className="font-semibold">{m.author.username}</span>
                             {m.author.isAdmin && (
-                              <span className="ml-1.5 rounded-full bg-primary/15 px-1.5 py-px text-[10px] font-semibold text-primary">
+                              <span className="ml-1.5 rounded-full bg-primary/15 px-1.5 py-px text-[10px] font-semibold text-primary-ink">
                                 ADMIN
                               </span>
                             )}
@@ -225,9 +232,9 @@ export function ChatRoom({
                               type="button"
                               onClick={() => handleDelete(m.id)}
                               aria-label="Elimina messaggio"
-                              className="shrink-0 rounded-full p-1 text-muted-foreground opacity-60 transition-opacity hover:text-destructive sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"
+                              className="flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground opacity-60 transition-[opacity,color,background-color] hover:bg-muted hover:text-destructive hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"
                             >
-                              <Trash2 className="size-3.5" />
+                              <Trash2 className="size-4" />
                             </button>
                           )}
                         </div>
@@ -244,7 +251,7 @@ export function ChatRoom({
           <button
             type="button"
             onClick={jumpToBottom}
-            className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-lg"
+            className="absolute bottom-3 left-1/2 flex h-9 -translate-x-1/2 items-center gap-1 rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground shadow-glow animate-in fade-in slide-in-from-bottom-2"
           >
             <ArrowDown className="size-3.5" /> Nuovi messaggi
           </button>
@@ -266,7 +273,7 @@ export function ChatRoom({
             rows={1}
             placeholder="Scrivi un messaggio..."
             aria-label="Messaggio"
-            className="max-h-32 min-h-11 w-full resize-none rounded-2xl border border-input bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="block max-h-32 min-h-11 w-full resize-none rounded-2xl border border-input bg-background px-4 py-2.5 text-base transition-[border-color,box-shadow] duration-200 placeholder:text-muted-foreground focus-visible:border-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/15 sm:text-sm"
           />
           {draft.length > MAX_LENGTH - 50 && (
             <span className="absolute -top-5 right-2 text-[11px] text-muted-foreground">

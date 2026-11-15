@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { Trophy, Coins, User } from "lucide-react";
+import { User } from "lucide-react";
 
 import { createClient } from "@/lib/supabase/server";
 import { getTeamWithOwner, getTeamRoster, getRosterValue } from "@/services/team-service";
@@ -33,30 +33,42 @@ export default async function PublicTeamPage({ params }: PageProps) {
   const latest = history[history.length - 1];
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
-      <div className="court-arc-bg rounded-3xl border border-border bg-surface p-6 sm:p-8">
-        <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-14">
+      {/* Intestazione a tabellone: nome, allenatore e i tre numeri che contano. */}
+      <div className="scoreboard rounded-3xl p-5 sm:p-8">
+        <p className="flex items-center gap-1.5 text-sm text-white/70">
           <User className="size-4" /> Allenatore: {team.ownerUsername}
         </p>
-        <h1 className="mt-1 font-display text-3xl tracking-wide sm:text-4xl">{team.team_name}</h1>
+        <h1 className="mt-1 break-words font-display text-display-lg tracking-wide">{team.team_name}</h1>
 
-        <div className="mt-5 flex flex-wrap gap-4">
-          <span className="flex items-center gap-1.5 text-sm font-semibold">
-            <Trophy className="size-4 text-primary" /> {latest ? `${latest.position}° in classifica` : "Nessuna giornata giocata"}
-          </span>
-          <span className="flex items-center gap-1.5 text-sm font-semibold">
-            <Coins className="size-4 text-primary" /> Valore rosa: {rosterValue} cr.
-          </span>
-        </div>
+        <dl className="mt-5 grid grid-cols-3 gap-3 border-t border-white/10 pt-4 sm:mt-6 sm:pt-5">
+          <div>
+            <dt className="text-label uppercase text-white/60">Posizione</dt>
+            <dd className="scoreboard-digit mt-1 text-2xl leading-none text-accent sm:text-4xl">{latest ? `${latest.position}°` : "—"}</dd>
+          </div>
+          <div>
+            <dt className="text-label uppercase text-white/60">Punti</dt>
+            <dd className="scoreboard-digit mt-1 text-2xl leading-none text-primary sm:text-4xl">
+              {latest ? latest.pointsTotal : team.total_points}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-label uppercase text-white/60">Valore rosa</dt>
+            <dd className="scoreboard-digit mt-1 text-2xl leading-none sm:text-4xl">
+              {rosterValue}
+              <span className="ml-1 font-sans text-xs font-semibold text-white/60">cr.</span>
+            </dd>
+          </div>
+        </dl>
       </div>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1.3fr_1fr]">
+      <div className="mt-6 grid gap-6 sm:mt-8 sm:gap-8 lg:grid-cols-[1.3fr_1fr]">
         <section>
-          <h2 className="mb-4 font-display text-xl tracking-wide">Rosa</h2>
+          <h2 className="mb-3 font-display text-display-sm tracking-wide">Rosa</h2>
           <PublicRoster roster={roster} />
         </section>
         <section>
-          <h2 className="mb-4 font-display text-xl tracking-wide">Storico giornate</h2>
+          <h2 className="mb-3 font-display text-display-sm tracking-wide">Storico giornate</h2>
           <MatchdayHistory history={history} />
         </section>
       </div>

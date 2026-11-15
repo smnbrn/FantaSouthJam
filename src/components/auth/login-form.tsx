@@ -69,7 +69,7 @@ export function LoginForm() {
                 <FormItem>
                   <div className="flex items-center justify-between">
                     <FormLabel>Password</FormLabel>
-                    <Link href="/recupera-password" className="text-xs font-semibold text-primary hover:underline">
+                    <Link href="/recupera-password" className="text-xs font-semibold text-primary-ink hover:underline">
                       Password dimenticata?
                     </Link>
                   </div>
@@ -87,7 +87,7 @@ export function LoginForm() {
         </Form>
         <p className="mt-6 text-center text-sm text-muted-foreground">
           Non hai un account?{" "}
-          <Link href="/registrati" className="font-semibold text-primary hover:underline">
+          <Link href="/registrati" className="font-semibold text-primary-ink hover:underline">
             Registrati
           </Link>
         </p>

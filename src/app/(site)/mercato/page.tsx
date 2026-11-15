@@ -26,9 +26,9 @@ export default async function MercatoPage() {
   const roster = team ? await getTeamRoster(supabase, team.id) : [];
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-      <div className="mb-8">
-        <h1 className="font-display text-3xl tracking-wide sm:text-4xl">Mercato</h1>
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-14">
+      <div className="mb-5 sm:mb-8">
+        <h1 className="font-display text-display-lg tracking-wide">Mercato</h1>
         <p className="mt-1 text-muted-foreground">Cerca, confronta e acquista i giocatori reali del torneo.</p>
       </div>
 

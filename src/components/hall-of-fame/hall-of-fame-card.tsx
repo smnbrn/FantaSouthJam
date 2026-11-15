@@ -22,13 +22,13 @@ function Honor({
       <div
         className={cn(
           "flex size-10 shrink-0 items-center justify-center rounded-xl",
-          dark ? "bg-white/10 text-accent" : "bg-primary/10 text-primary"
+          dark ? "bg-white/10 text-accent" : "bg-primary/12 text-primary-ink"
         )}
       >
         <Icon className="size-5" />
       </div>
       <div className="min-w-0">
-        <p className={cn("text-[11px] font-semibold uppercase tracking-widest", dark ? "text-white/60" : "text-muted-foreground")}>
+        <p className={cn("text-label uppercase", dark ? "text-white/60" : "text-muted-foreground")}>
           {label}
         </p>
         <p className="mt-0.5 break-words font-display text-xl tracking-wide">{name}</p>
@@ -45,7 +45,7 @@ export function HallOfFameCard({ entry, featured = false }: { entry: HallOfFameE
     <article
       className={cn(
         "rounded-3xl border p-6 sm:p-8",
-        featured ? "scoreboard border-transparent" : "border-border bg-surface"
+        featured ? "scoreboard border-transparent" : "border-border bg-surface shadow-card"
       )}
     >
       <div className="flex items-baseline justify-between gap-4">
@@ -53,7 +53,7 @@ export function HallOfFameCard({ entry, featured = false }: { entry: HallOfFameE
           {entry.year}
         </h2>
         {featured && (
-          <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-accent">
+          <span className="rounded-full bg-white/10 px-3 py-1 text-label uppercase text-accent">
             Ultima edizione
           </span>
         )}

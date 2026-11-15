@@ -65,15 +65,15 @@ export function PlayersTable({ players }: { players: Player[] }) {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-border">
+      <div className="overflow-hidden rounded-2xl border border-border shadow-card">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border bg-surface-muted text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              <th className="px-4 py-3">Giocatore</th>
-              <th className="hidden px-4 py-3 sm:table-cell">Ruolo</th>
-              <th className="px-4 py-3 text-right">Costo</th>
-              <th className="hidden px-4 py-3 text-right sm:table-cell">Punti</th>
-              <th className="px-4 py-3" />
+            <tr className="border-b border-border bg-surface-muted text-left text-label uppercase text-muted-foreground">
+              <th className="px-3 py-3 sm:px-4">Giocatore</th>
+              <th className="hidden px-3 py-3 sm:px-4 sm:table-cell">Ruolo</th>
+              <th className="px-3 py-3 sm:px-4 text-right">Costo</th>
+              <th className="hidden px-3 py-3 sm:px-4 text-right sm:table-cell">Punti</th>
+              <th className="px-3 py-3 sm:px-4" />
             </tr>
           </thead>
           <tbody>
@@ -86,7 +86,7 @@ export function PlayersTable({ players }: { players: Player[] }) {
             ) : (
               pageItems.map((player) => (
                 <tr key={player.id} className={`border-b border-border bg-surface last:border-0 ${!player.is_active ? "opacity-50" : ""}`}>
-                  <td className="px-4 py-3">
+                  <td className="w-full max-w-0 px-3 py-3 sm:px-4">
                     <div className="flex items-center gap-3">
                       <Avatar className="size-9">
                         {player.photo_url && <AvatarImage src={player.photo_url} alt={player.full_name} />}
@@ -96,14 +96,14 @@ export function PlayersTable({ players }: { players: Player[] }) {
                         <p className="truncate font-semibold">{player.full_name}</p>
                         <p className="truncate text-xs text-muted-foreground">{player.real_team}</p>
                       </div>
-                      {!player.is_active && <Badge variant="outline">Non a mercato</Badge>}
+                      {!player.is_active && <Badge variant="outline" className="hidden sm:inline-flex">Non a mercato</Badge>}
                     </div>
                   </td>
-                  <td className="hidden px-4 py-3 text-muted-foreground sm:table-cell">{player.role}</td>
-                  <td className="px-4 py-3 text-right font-semibold">{player.cost} cr.</td>
-                  <td className="hidden px-4 py-3 text-right text-muted-foreground sm:table-cell">{player.total_points}</td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center justify-end gap-1">
+                  <td className="hidden px-3 py-3 sm:px-4 text-muted-foreground sm:table-cell">{player.role}</td>
+                  <td className="whitespace-nowrap px-3 py-3 text-right font-semibold tabular-nums sm:px-4">{player.cost} cr.</td>
+                  <td className="hidden px-3 py-3 sm:px-4 text-right text-muted-foreground sm:table-cell">{player.total_points}</td>
+                  <td className="py-3 pr-1 sm:px-4">
+                    <div className="flex items-center justify-end sm:gap-1">
                       <Button variant="ghost" size="icon" onClick={() => setEditingPlayer(player)} aria-label={`Modifica ${player.full_name}`}>
                         <Pencil className="size-4" />
                       </Button>

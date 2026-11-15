@@ -86,7 +86,7 @@ export function ForgotPasswordForm() {
 
         <Link
           href="/login"
-          className="mt-6 flex items-center justify-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-primary"
+          className="mt-6 flex items-center justify-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-primary-ink"
         >
           <ArrowLeft className="size-3.5" /> Torna al login
         </Link>
