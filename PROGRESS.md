@@ -64,11 +64,21 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
     con `supabase gen types typescript --local` e adattare i servizi: è un cambio a parte, da approvare.
   - Non fatto: restringere i `select("*")` che leggono righe intere (guadagno minimo, tocca i tipi di cui sopra).
 
+- [x] **Controllo del pannello admin** (15/11/2026): aperte in locale tutte e 7 le pagine con l'admin di prova.
+  - Trovato e corretto su telefono: tabelle di giocatori e squadre più larghe dello schermo (pulsanti di modifica
+    tagliati); statistiche della panoramica una per riga (ora 2×2); menu del pannello che non mostrava la voce attiva
+    quando era fuori dallo schermo (ora scorre da solo); intestazione allineata alle altre pagine.
+  - Nessun difetto causato dai blocchi 1–4: badge, pulsanti, campi, tab e finestre si vedono bene anche lì.
+  - Verificato: typecheck 0 errori, lint 0, build ok. Viste a 390 px (scuro) tutte le pagine, a 1280 px (chiaro)
+    panoramica e giocatori.
+  - **Non provato**: le azioni del pannello dal modulo (assegnare un bonus, modificare un giocatore, cambiare
+    un'impostazione, archiviare la stagione). Ho solo guardato le pagine; un bonus l'ho assegnato dal database.
+
 ## Lavoro concluso: cosa resta da decidere
 
 - Unione di `nuove-sale` in `main`: solo con l'OK del proprietario, dopo la prova sull'anteprima Vercel.
-- Pannello admin mai aperto in queste sessioni: da guardare prima dell'unione.
-- Rigenerazione dei tipi del database (vedi sopra).
+- Azioni del pannello admin da provare a mano prima dell'unione (vedi sopra).
+- Rigenerazione dei tipi del database (vedi blocco 4).
 
 ## Verifiche eseguite nell'audit
 

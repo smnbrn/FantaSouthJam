@@ -25,10 +25,10 @@ export default async function AdminOverviewPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard icon={Users} label="Utenti registrati" value={profiles.length} />
-        <StatCard icon={Shield} label="Squadre create" value={teams.length} />
-        <StatCard icon={ShoppingBag} label="Giocatori sul mercato" value={players.length} />
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <StatCard icon={Users} label="Utenti" value={profiles.length} />
+        <StatCard icon={Shield} label="Squadre" value={teams.length} />
+        <StatCard icon={ShoppingBag} label="Giocatori" value={players.length} />
         <StatCard
           icon={CalendarCog}
           label="Mercato"
@@ -47,7 +47,7 @@ export default async function AdminOverviewPage() {
         <CardContent className="flex flex-wrap gap-3">
           {matchdays.map((m) => (
             <div key={m.id} className="flex items-center gap-2 rounded-xl border border-border px-3 py-2">
-              <span className="font-display text-sm tracking-wide">Giornata {m.number}</span>
+              <span className="text-sm font-bold">Giornata {m.number}</span>
               <Badge variant={m.status === "closed" ? "secondary" : m.status === "open" ? "default" : "outline"}>
                 {STATUS_LABEL[m.status]}
               </Badge>
