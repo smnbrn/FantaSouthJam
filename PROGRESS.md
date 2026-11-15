@@ -18,8 +18,8 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
   perché manca la configurazione, non per un difetto del codice. Il repo non ha `.env.local`.
 - Screenshot sul deploy `https://fanta3v3amantea.vercel.app` a 390 px e 1280 px, tema scuro e chiaro:
   home, classifica, giornate, Hall of Fame, regolamento, pagina squadra, login, 404.
-- **Non viste (serve il login)**: dashboard, mercato, la mia squadra, chat, profilo, admin.
-  Valutate solo dal codice; servono gli screenshot del proprietario o un account di prova.
+- Pagine con login viste **in locale** (Supabase su Docker, dati di prova): dashboard, mercato, la mia squadra,
+  chat, profilo. Non ancora visto: pannello admin.
 
 ## Problemi trovati (in ordine di impatto)
 
@@ -39,6 +39,10 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
 8. Skeleton presenti solo su 4 pagine; nessuna animazione sui cambi di posizione o sull'acquisto.
 9. Avatar marroni (`secondary`) tutti uguali; nessuna foto né colore per squadra.
 10. Banner cookie: due pulsanti identici in colore spento.
+11. Dashboard su telefono: le 4 statistiche sono in colonna e riempiono tutto il primo schermo (meglio 2×2).
+12. Pulsante principale disattivato («Salva formazione», «Salva modifiche»): arancio scuro con testo poco leggibile.
+13. Mercato su telefono: ogni giocatore occupa una scheda alta, 24 giocatori sono uno scorrimento lungo;
+    il pallino della chat copre i pulsanti «Acquista».
 
 ### Tecnica
 1. `useUser` montato due volte (navbar e pallino chat): 2 `getUser` + 2 letture profilo + 1 `can_use_chat`
@@ -58,6 +62,15 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
 
 - Repo usato: `C:\Users\simon\Desktop\Repos\FantaSouthJam` (Next 15.5.27, allineato a `origin/main`).
   La copia in `Downloads\fanta3v3-amantea` (Next 15.5.22, senza Git) non è stata toccata.
-- Nome del ramo `nuove-sale` e voce «artisti esclusi» presi dalle istruzioni: sembrano di un altro progetto;
-  chiesto al proprietario se rinominare il ramo.
+- Dominio ufficiale: `https://fanta3v3amantea.vercel.app` (risposta del proprietario, 15/11/2026).
+- Il ramo resta `nuove-sale` (risposta del proprietario, 15/11/2026).
+
+## Ambiente locale (creato il 15/11/2026)
+
+- Supabase locale su porte dedicate 553xx (`supabase/config.toml`, progetto `fantasouthjam`): non tocca quello
+  del gestionale. Avvio: `supabase start -x studio,logflare,vector,edge-runtime,imgproxy,storage-api,mailpit,postgres-meta,supavisor`.
+- Le 6 migrazioni si applicano da zero senza errori.
+- Dati di prova: `node scripts/seed-local.mjs` (chiavi locali da `supabase status -o env`): 12 utenti
+  `<username>@prova.test`, 24 giocatori, 2 giornate chiuse, chat, Hall of Fame. Utente per le prove: `marco_p`; admin: `admin`.
+- App: `npm run dev -- -p 3100` con `.env.local` che punta al Supabase locale (file fuori dal repository).
 - Il primo clic su «Rifiuta» nel banner cookie durante l'audit è stato fatto apposta (scelta più riservata).
