@@ -30,7 +30,22 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
     tabellone scuro e i numeri grandi (24 px o più).
   - Verificato: typecheck 0 errori, lint 0, build ok; visto in locale a 390 px (squadra, giornate, mercato con
     finestra di acquisto, profilo; chiaro e scuro) e a 1280 px (dashboard). Nessun errore dell'app in console.
-- [ ] **Blocco 3 — Pagine chiave** (dashboard, mercato, classifica live, profilo squadra, Hall of Fame, chat)
+- [x] **Blocco 3 — Pagine chiave** (15/11/2026): fatto in cinque passi, un commit ciascuno.
+  - 3a Navigazione: barra fissa in basso su telefono (`mobile-tab-bar.tsx`); `UserProvider` condiviso (una sola lettura
+    di utente e profilo per pagina: era il punto 1 della lista tecnica); tolto il pallino trascinabile della chat;
+    «Profilo» nel menu a scomparsa; area sicura di iPhone; avvisi sopra la barra.
+  - 3b Classifica: elenco al posto della tabella (più spazio ai nomi), righe che scivolano alla nuova posizione e si
+    accendono quando cambiano i punti, un solo ricaricamento ogni 400 ms (era il punto 2 della lista tecnica).
+    Provata dal vivo assegnando un bonus nel database locale: la pagina si è aggiornata da sola.
+    `cn()` ora conosce le dimensioni di testo e le ombre del tema (senza, `text-label` veniva scartata).
+  - 3c Dashboard, mercato, la mia squadra: statistiche 2×2; righe del mercato compatte con crediti e posti sempre
+    visibili; acquisto provato davvero in locale (saldo aggiornato, riga «In rosa», avviso); stella e cestino da 44 px.
+  - 3d Giornate, Hall of Fame, pagina squadra: totale del giocatore in evidenza e bonus/malus in piccolo; intestazione
+    della squadra a tabellone con posizione, punti e valore rosa; stati vuoti tutti con `EmptyState`.
+  - 3e Chat: campo a 16 px su telefono, cestino da 36 px, stato «In diretta» come in classifica, messaggi nuovi animati.
+  - Verificato: typecheck 0 errori, lint 0, build ok (28 pagine). Visto in locale a 390 px chiaro e scuro e a 1280 px.
+  - **Non fatto / non verificato**: pannello admin non aperto; home, regolamento, FAQ, crediti e pagine di accesso
+    non ridisegnate (hanno solo i nuovi token e componenti); nessuna prova su un iPhone vero né sull'anteprima Vercel.
 - [ ] **Blocco 4 — Correzioni tecniche** emerse dall'audit
 
 ## Verifiche eseguite nell'audit

@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getRecentMessages } from "@/services/chat-service";
 import { ChatRoom } from "@/components/chat/chat-room";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export const metadata = { title: "Chat" };
 
@@ -23,15 +24,18 @@ export default async function ChatPage() {
 
   if (!canChat) {
     return (
-      <div className="mx-auto flex max-w-lg flex-col items-center px-4 py-24 text-center">
-        <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary-ink">
-          <MessagesSquare className="size-6" />
-        </div>
-        <h1 className="mt-5 font-display text-3xl tracking-wide">La chat è per chi gioca</h1>
-        <p className="mt-2 text-muted-foreground">Crea la tua squadra per entrare nella chat con gli altri partecipanti.</p>
-        <Button className="mt-6" asChild>
-          <Link href="/squadra">Crea la tua squadra</Link>
-        </Button>
+      <div className="mx-auto max-w-lg px-4 py-12 sm:py-20">
+        <h1 className="sr-only">Chat</h1>
+        <EmptyState
+          icon={MessagesSquare}
+          title="La chat è per chi gioca"
+          description="Crea la tua squadra per entrare nella chat con gli altri partecipanti."
+          className="py-14"
+        >
+          <Button asChild>
+            <Link href="/squadra">Crea la tua squadra</Link>
+          </Button>
+        </EmptyState>
       </div>
     );
   }
