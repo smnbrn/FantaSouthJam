@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { Coins, Gem, Trophy, Medal } from "lucide-react";
+import { Coins, Gem, Lock, Trophy, Medal } from "lucide-react";
 
 import { createClient } from "@/lib/supabase/server";
 import { getMyTeam, getTeamRoster, getRosterValue } from "@/services/team-service";
@@ -10,6 +10,7 @@ import { StatCard } from "@/components/dashboard/stat-card";
 import { CreateTeamPrompt } from "@/components/dashboard/create-team-prompt";
 import { RosterSummary } from "@/components/dashboard/roster-summary";
 import { NextMatchdayCard } from "@/components/dashboard/next-matchday-card";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata = { title: "Dashboard" };
 
@@ -29,8 +30,8 @@ export default async function DashboardPage() {
 
   if (!team) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
-        <h1 className="font-display text-3xl tracking-wide sm:text-4xl">Ciao, {username} 👋</h1>
+      <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-14">
+        <h1 className="font-display text-display-lg tracking-wide">Ciao, {username} 👋</h1>
         <div className="mt-8">
           <CreateTeamPrompt budgetInitial={settings.budget_initial} />
         </div>
@@ -47,23 +48,24 @@ export default async function DashboardPage() {
   const rosterValue = getRosterValue(roster);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-14">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div className="min-w-0">
           <p className="text-sm text-muted-foreground">Ciao, {username} 👋</p>
-          <h1 className="font-display text-3xl tracking-wide sm:text-4xl">{team.team_name}</h1>
+          <h1 className="break-words font-display text-display-lg tracking-wide">{team.team_name}</h1>
         </div>
         {team.is_locked && (
-          <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">
-            🔒 Rosa bloccata
-          </span>
+          <Badge variant="secondary" className="py-1">
+            <Lock className="size-3.5" /> Rosa bloccata
+          </Badge>
         )}
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Due per riga anche su telefono: le quattro statistiche stanno in mezza schermata. */}
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <StatCard
           icon={Trophy}
-          label="Posizione classifica"
+          label="Posizione"
           value={ranking ? `${ranking.position}°` : "—"}
           suffix={ranking ? `/ ${totalTeams}` : undefined}
           highlight
@@ -73,9 +75,12 @@ export default async function DashboardPage() {
         <StatCard icon={Gem} label="Valore rosa" value={rosterValue} suffix="cr." />
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
+      {/* Su telefono la prossima giornata viene prima della rosa, su schermi larghi sta a destra. */}
+      <div className="mt-4 grid gap-4 sm:mt-6 sm:gap-6 lg:grid-cols-[2fr_1fr] lg:items-start">
+        <div className="lg:order-last">
+          <NextMatchdayCard matchday={nextMatchday} />
+        </div>
         <RosterSummary roster={roster} rosterMaxSize={settings.roster_max_size} />
-        <NextMatchdayCard matchday={nextMatchday} />
       </div>
     </div>
   );

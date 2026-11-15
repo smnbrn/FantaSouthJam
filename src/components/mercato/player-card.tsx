@@ -2,7 +2,6 @@ import { Check } from "lucide-react";
 import type { Player } from "@/types";
 import { cn, formatNumber, getInitials } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 interface PlayerCardProps {
@@ -14,53 +13,52 @@ interface PlayerCardProps {
   onBuy: () => void;
 }
 
-/** Ruolo di default assegnato a tutti i giocatori: mostrarlo su ogni card sarebbe solo rumore. */
+/** Ruolo di default assegnato a tutti i giocatori: mostrarlo su ogni scheda sarebbe solo rumore. */
 const DEFAULT_ROLE = "Giocatore";
 
+/** Riga compatta del mercato: su telefono ne entrano sei o sette per schermata invece di tre. */
 export function PlayerCard({ player, owned, canAfford, canBuy, buying, onBuy }: PlayerCardProps) {
+  const available = canBuy && canAfford;
+
   return (
     <article
       className={cn(
-        "flex flex-col gap-4 rounded-2xl border border-border bg-surface p-4 transition-colors",
-        owned ? "border-primary/50 bg-primary/[0.04]" : "hover:border-primary/30"
+        "flex items-center gap-3 rounded-2xl border bg-surface p-3 shadow-card transition-colors duration-200",
+        owned ? "border-primary/40 bg-primary/[0.05]" : "border-border hover:border-primary/30"
       )}
     >
-      <div className="flex items-start gap-3">
-        <Avatar className="size-12 rounded-xl">
-          {player.photo_url && <AvatarImage src={player.photo_url} alt={player.full_name} className="rounded-xl" />}
-          <AvatarFallback className="rounded-xl text-sm">{getInitials(player.full_name)}</AvatarFallback>
-        </Avatar>
-        <div className="min-w-0 flex-1">
-          <h3 className="line-clamp-2 font-display text-lg leading-tight tracking-wide">{player.full_name}</h3>
-          <p className="truncate text-xs text-muted-foreground">{player.real_team}</p>
-          {player.role !== DEFAULT_ROLE && (
-            <Badge variant="outline" className="mt-1.5">
-              {player.role}
-            </Badge>
-          )}
-        </div>
-        <div className="shrink-0 text-right">
-          <p className="font-display text-2xl leading-none tabular-nums text-primary">{player.cost}</p>
-          <p className="mt-0.5 text-[11px] text-muted-foreground">crediti</p>
-        </div>
-      </div>
+      <Avatar className="size-12 rounded-xl">
+        {player.photo_url && <AvatarImage src={player.photo_url} alt="" className="rounded-xl" />}
+        <AvatarFallback className="rounded-xl">{getInitials(player.full_name)}</AvatarFallback>
+      </Avatar>
 
-      <div className="mt-auto flex items-center justify-between gap-3 border-t border-border pt-3">
-        <p className="text-sm text-muted-foreground">
+      <div className="min-w-0 flex-1">
+        <h3 className="line-clamp-2 text-[15px] leading-tight">{player.full_name}</h3>
+        <p className="mt-0.5 truncate text-xs text-muted-foreground">
+          {player.real_team}
+          {player.role !== DEFAULT_ROLE && ` · ${player.role}`}
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">
           <span className="font-semibold tabular-nums text-foreground">{formatNumber(player.total_points)}</span> punti
         </p>
+      </div>
+
+      <div className="flex shrink-0 flex-col items-end gap-1.5">
+        <p className="font-display text-2xl leading-none tabular-nums text-primary">
+          {player.cost}
+          <span className="ml-1 font-sans text-[11px] font-semibold text-muted-foreground">cr.</span>
+        </p>
         {owned ? (
-          <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary-ink">
+          <span className="inline-flex h-10 items-center gap-1 text-sm font-semibold text-primary-ink animate-in fade-in zoom-in-90 duration-300">
             <Check className="size-4" /> In rosa
           </span>
         ) : (
           <Button
             size="sm"
-            variant="outline"
-            className={cn(canBuy && canAfford && "border-primary/50 text-primary-ink hover:bg-primary hover:text-primary-foreground")}
+            variant={available ? "soft" : "outline"}
             onClick={onBuy}
             loading={buying}
-            disabled={!canBuy || !canAfford}
+            disabled={!available}
             aria-label={`Acquista ${player.full_name} per ${player.cost} crediti`}
           >
             {!canAfford ? "Fuori budget" : "Acquista"}

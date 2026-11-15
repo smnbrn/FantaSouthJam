@@ -7,7 +7,8 @@ import { getAllMatchdays } from "@/services/matchday-service";
 import { CreateTeamForm } from "@/components/squadra/create-team-form";
 import { RosterManager } from "@/components/squadra/roster-manager";
 import { BudgetBar } from "@/components/squadra/budget-bar";
-import { Gem } from "lucide-react";
+import { Gem, Lock } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export const metadata = { title: "La mia squadra" };
 
@@ -26,9 +27,11 @@ export default async function SquadraPage() {
         {settings.registration_open ? (
           <CreateTeamForm budgetInitial={settings.budget_initial} />
         ) : (
-          <p className="rounded-2xl border border-border bg-surface p-8 text-center text-sm text-muted-foreground">
-            Le iscrizioni sono chiuse: non è possibile creare nuove squadre in questo momento.
-          </p>
+          <EmptyState
+            icon={Lock}
+            title="Iscrizioni chiuse"
+            description="Non è possibile creare nuove squadre in questo momento."
+          />
         )}
       </div>
     );
@@ -39,10 +42,10 @@ export default async function SquadraPage() {
   const rosterValue = getRosterValue(roster);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
-      <h1 className="font-display text-3xl tracking-wide sm:text-4xl">{team.team_name}</h1>
+    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-14">
+      <h1 className="break-words font-display text-display-lg tracking-wide">{team.team_name}</h1>
 
-      <div className="mt-6 grid gap-4 rounded-2xl border border-border bg-surface p-5 sm:grid-cols-[2fr_1fr] sm:items-center">
+      <div className="mt-5 grid gap-4 rounded-2xl border border-border bg-surface p-5 shadow-card sm:grid-cols-[2fr_1fr] sm:items-center">
         <BudgetBar remaining={team.budget_remaining} total={team.budget_initial} />
         <div className="flex items-center gap-2 sm:justify-end">
           <Gem className="size-4 text-primary-ink" />
@@ -50,7 +53,7 @@ export default async function SquadraPage() {
         </div>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-4 sm:mt-6">
         <RosterManager
           team={team}
           roster={roster}

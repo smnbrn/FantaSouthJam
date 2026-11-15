@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export function RosterSummary({ roster, rosterMaxSize }: { roster: RosterEntry[]; rosterMaxSize: number }) {
   return (
@@ -25,13 +26,16 @@ export function RosterSummary({ roster, rosterMaxSize }: { roster: RosterEntry[]
       </CardHeader>
       <CardContent>
         {roster.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 py-6 text-center">
-            <ShoppingBag className="size-8 text-muted-foreground" />
-            <p className="text-sm text-muted-foreground">Non hai ancora acquistato nessun giocatore.</p>
+          <EmptyState
+            icon={ShoppingBag}
+            title="Rosa ancora vuota"
+            description="Non hai ancora acquistato nessun giocatore."
+            className="border-0 bg-transparent py-6"
+          >
             <Button size="sm" asChild>
               <Link href="/mercato">Vai al mercato</Link>
             </Button>
-          </div>
+          </EmptyState>
         ) : (
           <ul className="flex flex-col gap-1">
             {roster.map((entry) => (
@@ -44,7 +48,7 @@ export function RosterSummary({ roster, rosterMaxSize }: { roster: RosterEntry[]
                   <p className="truncate text-sm font-semibold">{entry.player.full_name}</p>
                   <p className="truncate text-xs text-muted-foreground">{entry.player.real_team}</p>
                 </div>
-                <Badge variant={entry.is_starter ? "default" : "outline"}>
+                <Badge variant={entry.is_starter ? "soft" : "outline"}>
                   {entry.is_starter ? "Titolare" : "Riserva"}
                 </Badge>
               </li>

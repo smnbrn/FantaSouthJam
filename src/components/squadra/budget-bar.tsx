@@ -8,7 +8,7 @@ export function BudgetBar({ remaining, total }: { remaining: number; total: numb
     <div>
       <div className="flex items-baseline justify-between">
         <p className="text-sm font-semibold">
-          <span className="font-display text-lg text-primary-ink">{remaining}</span>{" "}
+          <span className="font-display text-2xl leading-none tabular-nums text-primary">{remaining}</span>{" "}
           <span className="text-muted-foreground">crediti rimasti su {total}</span>
         </p>
         <p className="text-xs text-muted-foreground">{percentSpent}% speso</p>
