@@ -5,7 +5,16 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
 ## Stato
 
 - [x] **Fase 1 — Audit** (15/11/2026): fatto, nessun file dell'app modificato. In attesa dell'OK del proprietario sul piano.
-- [ ] **Blocco 1 — Design tokens** (colori, raggi, ombre, spaziature, scala tipografica, font)
+- [x] **Blocco 1 — Design tokens** (15/11/2026): fatto in `src/app/globals.css` e `src/app/layout.tsx`.
+  - Effetto vetro corretto: nel CSS compilato ora c'è anche `backdrop-filter` standard; vetro un po' più coprente (0,72).
+  - Colori: testo scuro sui pulsanti arancio anche nel tema chiaro (6,2:1); nuovo `primary-ink` (arancio da usare come
+    testo: `#b93d0a` nel chiaro, 4,6:1); verde e rosso più scuri nel chiaro; nuovo `success-foreground`.
+  - Raggi: scala unica crescente (8, 10, 12, 14, 20, 28 px). Prima `rounded-xl` (24) superava `rounded-2xl` (16).
+  - Ombre: tre livelli (`shadow-card`, `shadow-raised`, `shadow-glow`). Scala tipografica `text-display-xl/lg/md/sm`
+    e `text-label`. h3 e h4 non usano più Anton di base. Manrope da 5 a 4 pesi.
+  - Verificato: typecheck 0 errori, lint 0, build ok; visto in locale a 390 px chiaro e scuro (giornate, mercato, classifica).
+  - **Rimandato al blocco 2** (serve toccare i componenti): usare `text-primary-ink` al posto di `text-primary` per
+    testi e icone, `text-success-foreground` nel Badge, le nuove ombre e la scala tipografica nei componenti.
 - [ ] **Blocco 2 — Componenti base** (Button, Card, Input, Badge, Tabs, Dialog, Skeleton)
 - [ ] **Blocco 3 — Pagine chiave** (dashboard, mercato, classifica live, profilo squadra, Hall of Fame, chat)
 - [ ] **Blocco 4 — Correzioni tecniche** emerse dall'audit
