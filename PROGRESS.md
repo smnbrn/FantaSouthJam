@@ -46,7 +46,29 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
   - Verificato: typecheck 0 errori, lint 0, build ok (28 pagine). Visto in locale a 390 px chiaro e scuro e a 1280 px.
   - **Non fatto / non verificato**: pannello admin non aperto; home, regolamento, FAQ, crediti e pagine di accesso
     non ridisegnate (hanno solo i nuovi token e componenti); nessuna prova su un iPhone vero né sull'anteprima Vercel.
-- [ ] **Blocco 4 — Correzioni tecniche** emerse dall'audit
+- [x] **Blocco 4 — Correzioni tecniche** (15/11/2026)
+  - Pagina 404 in italiano («Palla persa»), sia fuori sia dentro il sito (`app/not-found.tsx`, `app/(site)/not-found.tsx`);
+    pagine di errore con «Riprova» (`app/error.tsx`, `app/(site)/error.tsx`); base comune `StatusPage`.
+  - SEO: indirizzo del sito in un solo posto (`src/lib/site.ts`), di base `https://fanta3v3amantea.vercel.app`
+    (su Vercel `NEXT_PUBLIC_SITE_URL` non è impostata: controllato, quindi vale questo); immagine di anteprima dei
+    link generata dal codice (`app/opengraph-image.tsx`); sitemap senza `/mercato`; robots esclude anche
+    `/squadra`, `/mercato`, `/chat`, `/auth`, `/reset-password`.
+  - Impostazioni lette controllando il tipo vero dei valori invece dei cast (`settings-service.ts`).
+  - Conteggi con `select("id")`; home: titolo con la scala del tema, etichetta del conto alla rovescia bilanciata.
+  - Già chiusi nel blocco 3: chiamate doppie di `useUser`, ricaricamenti della classifica live.
+  - Verificato: typecheck 0 errori, lint 0, build ok (29 pagine). In locale: 404 con stato HTTP 404 nelle due varianti,
+    immagine di anteprima 1200×630, robots, sitemap e meta `og:image`/`twitter:image` presenti.
+  - **Lasciato aperto di proposito — tipi dei join**: `src/types/database.types.ts` è scritto a mano e non descrive le
+    relazioni tra tabelle, quindi i join (`players(*)`, `profiles(username)`…) hanno tipo «errore» che il codice
+    attuale trasforma in `any`. Funziona, ma il compilatore lì non controlla nulla. La cura è rigenerare il file
+    con `supabase gen types typescript --local` e adattare i servizi: è un cambio a parte, da approvare.
+  - Non fatto: restringere i `select("*")` che leggono righe intere (guadagno minimo, tocca i tipi di cui sopra).
+
+## Lavoro concluso: cosa resta da decidere
+
+- Unione di `nuove-sale` in `main`: solo con l'OK del proprietario, dopo la prova sull'anteprima Vercel.
+- Pannello admin mai aperto in queste sessioni: da guardare prima dell'unione.
+- Rigenerazione dei tipi del database (vedi sopra).
 
 ## Verifiche eseguite nell'audit
 

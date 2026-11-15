@@ -45,7 +45,7 @@ function getFaqs(matchdays: number) {
 
 export default async function FaqPage() {
   const supabase = await createClient();
-  const { count } = await supabase.from("matchdays").select("*", { count: "exact", head: true });
+  const { count } = await supabase.from("matchdays").select("id", { count: "exact", head: true });
   const faqs = getFaqs(count ?? 0);
 
   return (

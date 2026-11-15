@@ -17,7 +17,7 @@ export async function getMyLatestRanking(
 
 /** Numero totale di squadre iscritte, per mostrare "3° su 12" invece del solo "3°". */
 export async function getTotalTeamsCount(supabase: SupabaseClient<Database>): Promise<number> {
-  const { count } = await supabase.from("fantasy_teams").select("*", { count: "exact", head: true });
+  const { count } = await supabase.from("fantasy_teams").select("id", { count: "exact", head: true });
   return count ?? 0;
 }
 
