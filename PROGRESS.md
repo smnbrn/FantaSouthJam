@@ -88,15 +88,17 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
     `null value in column "value" of relation "settings" violates not-null constraint`. Causa:
     `src/services/admin-service.ts` riga 127 manda `null`, ma la colonna `settings.value` non lo accetta.
     In produzione oggi non si vede perché la data è compilata; si presenta se l'admin la svuota.
-    Correzione proposta (una riga, nessun cambio al database): salvare la stringa vuota al posto di `null`;
-    chi legge la data tratta già il vuoto come «data da definire». In attesa dell'OK del proprietario.
+    **Corretto il 15/11/2026 con l'OK del proprietario**: `updateSettings` salva la stringa vuota al posto di `null`
+    e `getSettings` legge il vuoto come «data non impostata». Nessun cambio al database. Provato in locale dal modulo:
+    data vuota → «Impostazioni salvate», valore `""` nel database, campo vuoto dopo la ricarica, home che risponde;
+    data compilata → salvataggio riuscito come prima.
   - Stato del database locale dopo le prove: Giornata 3 «In corso», un giocatore in più («Giocatore Di Prova»),
     Alessio Vitale a 13 crediti, mercato riaperto a mano.
 
 ## Lavoro concluso: cosa resta da decidere
 
 - Unione di `nuove-sale` in `main`: solo con l'OK del proprietario, dopo la prova sull'anteprima Vercel.
-- Correzione del salvataggio delle impostazioni con data vuota (vedi sopra): serve l'OK.
+- Conferma prima di rimuovere un bonus dal pannello admin: proposta, non fatta.
 - Rigenerazione dei tipi del database (vedi blocco 4).
 
 ## Verifiche eseguite nell'audit

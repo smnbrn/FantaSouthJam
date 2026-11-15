@@ -124,7 +124,9 @@ export async function updateSettings(
     { key: "budget_initial", value: input.budgetInitial },
     { key: "roster_max_size", value: input.rosterMaxSize },
     { key: "roster_max_starters", value: input.rosterMaxStarters },
-    { key: "tournament_start_date", value: input.tournamentStartDate || null },
+    // Data non impostata = stringa vuota: la colonna `settings.value` non accetta NULL,
+    // e con `null` falliva il salvataggio di TUTTE le impostazioni.
+    { key: "tournament_start_date", value: input.tournamentStartDate || "" },
     { key: "rules_text", value: input.rulesText },
   ];
 

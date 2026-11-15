@@ -35,7 +35,9 @@ export async function getSettings(
     roster_max_size: num("roster_max_size", DEFAULT_SETTINGS.roster_max_size),
     roster_max_starters: num("roster_max_starters", DEFAULT_SETTINGS.roster_max_starters),
     budget_initial: num("budget_initial", DEFAULT_SETTINGS.budget_initial),
-    tournament_start_date: typeof startDate === "string" ? startDate : DEFAULT_SETTINGS.tournament_start_date,
+    // Stringa vuota = data non impostata (vedi updateSettings): per l'app vale come null.
+    tournament_start_date:
+      typeof startDate === "string" && startDate !== "" ? startDate : DEFAULT_SETTINGS.tournament_start_date,
     rules_text: text("rules_text", DEFAULT_SETTINGS.rules_text),
   };
 }
