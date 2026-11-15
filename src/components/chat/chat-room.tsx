@@ -201,7 +201,7 @@ export function ChatRoom({
                           <p className="mb-0.5 px-1 text-xs">
                             <span className="font-semibold">{m.author.username}</span>
                             {m.author.isAdmin && (
-                              <span className="ml-1.5 rounded-full bg-primary/15 px-1.5 py-px text-[10px] font-semibold text-primary">
+                              <span className="ml-1.5 rounded-full bg-primary/15 px-1.5 py-px text-[10px] font-semibold text-primary-ink">
                                 ADMIN
                               </span>
                             )}

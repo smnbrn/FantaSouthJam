@@ -135,7 +135,7 @@ export function RosterManager({
                       onClick={() => toggleStarter(entry.player_id)}
                       aria-pressed={isStarter}
                       aria-label={isStarter ? "Rendi riserva" : "Rendi titolare"}
-                      className="shrink-0 text-muted-foreground transition-colors hover:text-primary"
+                      className="shrink-0 text-muted-foreground transition-colors hover:text-primary-ink"
                     >
                       <Star className={isStarter ? "size-5 fill-primary text-primary" : "size-5"} />
                     </button>

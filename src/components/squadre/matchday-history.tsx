@@ -22,7 +22,7 @@ export function MatchdayHistory({ history }: { history: RankingHistoryEntry[] })
               <td className="px-4 py-3 font-semibold">{entry.matchdayTitle}</td>
               <td className="px-4 py-3 text-right text-muted-foreground">{entry.pointsMatchday}</td>
               <td className="px-4 py-3 text-right">{entry.pointsTotal}</td>
-              <td className="px-4 py-3 text-right font-display text-primary">{entry.position}°</td>
+              <td className="px-4 py-3 text-right font-display text-primary-ink">{entry.position}°</td>
             </tr>
           ))}
         </tbody>

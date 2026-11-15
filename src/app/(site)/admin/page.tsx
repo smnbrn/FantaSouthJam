@@ -40,7 +40,7 @@ export default async function AdminOverviewPage() {
       <Card>
         <CardHeader className="flex-row items-center justify-between space-y-0">
           <CardTitle>Giornate</CardTitle>
-          <Link href="/admin/giornate" className="flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
+          <Link href="/admin/giornate" className="flex items-center gap-1 text-sm font-semibold text-primary-ink hover:underline">
             Gestisci <ArrowRight className="size-3.5" />
           </Link>
         </CardHeader>

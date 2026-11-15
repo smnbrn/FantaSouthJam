@@ -127,7 +127,7 @@ export function Leaderboard({ initialRows, myTeamId }: { initialRows: Leaderboar
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
         {myRow ? (
-          <a href={`#team-${myRow.fantasyTeamId}`} className="font-semibold hover:text-primary">
+          <a href={`#team-${myRow.fantasyTeamId}`} className="font-semibold hover:text-primary-ink">
             La tua squadra: {myRow.position ? `${myRow.position}° posto` : "non ancora in classifica"}
             {myRow.position ? ` con ${formatNumber(myRow.pointsTotal)} punti` : ""}
           </a>
@@ -182,7 +182,7 @@ export function Leaderboard({ initialRows, myTeamId }: { initialRows: Leaderboar
                     <td className="max-w-0 px-2 py-3">
                       <Link
                         href={`/squadre/${row.fantasyTeamId}`}
-                        className="block truncate font-semibold hover:text-primary hover:underline"
+                        className="block truncate font-semibold hover:text-primary-ink hover:underline"
                       >
                         {row.teamName}
                       </Link>
@@ -194,7 +194,7 @@ export function Leaderboard({ initialRows, myTeamId }: { initialRows: Leaderboar
                     <td className="hidden px-4 py-3 text-right tabular-nums text-muted-foreground sm:table-cell">
                       {row.position === null ? "—" : formatSigned(row.pointsMatchday)}
                     </td>
-                    <td className="px-4 py-3 text-right font-display text-lg tabular-nums text-primary">
+                    <td className="px-4 py-3 text-right font-display text-lg tabular-nums text-primary-ink">
                       {formatNumber(row.pointsTotal)}
                     </td>
                   </tr>

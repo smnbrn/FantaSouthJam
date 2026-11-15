@@ -14,10 +14,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         aria-invalid={invalid}
         className={cn(
-          "flex h-11 w-full rounded-xl border border-input bg-surface px-4 text-sm text-foreground shadow-sm transition-colors placeholder:text-muted-foreground",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-primary",
+          "flex h-11 w-full rounded-xl border border-input bg-surface px-4 text-base text-foreground transition-[border-color,box-shadow] duration-200 placeholder:text-muted-foreground sm:text-sm",
+          "hover:border-foreground/25 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/15",
           "disabled:cursor-not-allowed disabled:opacity-50",
-          "aria-[invalid=true]:border-destructive aria-[invalid=true]:focus-visible:ring-destructive",
+          "aria-[invalid=true]:border-destructive aria-[invalid=true]:focus-visible:ring-destructive/20",
           className
         )}
         {...props}

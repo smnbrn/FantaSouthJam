@@ -51,7 +51,7 @@ export default async function FaqPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
       <div className="text-center">
-        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary-ink">
           <HelpCircle className="size-6" />
         </div>
         <h1 className="mt-6 font-display text-4xl tracking-wide sm:text-5xl">Domande frequenti</h1>
@@ -66,7 +66,7 @@ export default async function FaqPage() {
           >
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base tracking-wide">
               {item.q}
-              <ChevronDown className="size-5 shrink-0 text-primary transition-transform duration-300 group-open:rotate-180" />
+              <ChevronDown className="size-5 shrink-0 text-primary-ink transition-transform duration-300 group-open:rotate-180" />
             </summary>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.a}</p>
           </details>

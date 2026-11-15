@@ -102,7 +102,7 @@ export function MarketBrowser({
 
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-surface px-5 py-3">
         <span className="flex items-center gap-1.5 text-sm font-semibold">
-          <Coins className="size-4 text-primary" /> {team.budget_remaining} crediti disponibili
+          <Coins className="size-4 text-primary-ink" /> {team.budget_remaining} crediti disponibili
         </span>
         <span className="text-xs text-muted-foreground">
           Rosa: {roster.length}/{rosterMaxSize}

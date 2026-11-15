@@ -50,14 +50,14 @@ export function PlayerCard({ player, owned, canAfford, canBuy, buying, onBuy }: 
           <span className="font-semibold tabular-nums text-foreground">{formatNumber(player.total_points)}</span> punti
         </p>
         {owned ? (
-          <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary">
+          <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary-ink">
             <Check className="size-4" /> In rosa
           </span>
         ) : (
           <Button
             size="sm"
             variant="outline"
-            className={cn(canBuy && canAfford && "border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground")}
+            className={cn(canBuy && canAfford && "border-primary/50 text-primary-ink hover:bg-primary hover:text-primary-foreground")}
             onClick={onBuy}
             loading={buying}
             disabled={!canBuy || !canAfford}

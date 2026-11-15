@@ -46,7 +46,7 @@ export default async function ProfiloPage() {
           href="/squadra"
           className="group mt-8 flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-primary/40"
         >
-          <Shield className="size-6 shrink-0 text-primary" />
+          <Shield className="size-6 shrink-0 text-primary-ink" />
           <div className="min-w-0 flex-1">
             <p className="truncate font-semibold">{team.team_name}</p>
             <p className="text-sm text-muted-foreground">
@@ -60,7 +60,7 @@ export default async function ProfiloPage() {
           href="/squadra"
           className="mt-8 flex items-center justify-between rounded-2xl border border-dashed border-border p-5 text-sm text-muted-foreground hover:border-primary/40"
         >
-          Non hai ancora una squadra. <span className="font-semibold text-primary">Creala ora</span>
+          Non hai ancora una squadra. <span className="font-semibold text-primary-ink">Creala ora</span>
         </Link>
       )}
 

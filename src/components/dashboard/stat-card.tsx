@@ -24,7 +24,7 @@ export function StatCard({
       <div
         className={cn(
           "flex size-9 items-center justify-center rounded-xl",
-          highlight ? "bg-white/10 text-accent" : "bg-primary/10 text-primary"
+          highlight ? "bg-white/10 text-accent" : "bg-primary/10 text-primary-ink"
         )}
       >
         <Icon className="size-5" />

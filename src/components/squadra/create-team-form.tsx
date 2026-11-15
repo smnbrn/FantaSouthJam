@@ -45,7 +45,7 @@ export function CreateTeamForm({ budgetInitial }: { budgetInitial: number }) {
     <Card className="glass-panel animate-fade-up">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-2xl">
-          <Shield className="size-6 text-primary" /> Crea la tua squadra
+          <Shield className="size-6 text-primary-ink" /> Crea la tua squadra
         </CardTitle>
         <CardDescription>Scegli un nome: sarà la tua identità per tutto il torneo.</CardDescription>
       </CardHeader>

@@ -24,7 +24,7 @@ export default async function ChatPage() {
   if (!canChat) {
     return (
       <div className="mx-auto flex max-w-lg flex-col items-center px-4 py-24 text-center">
-        <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+        <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary-ink">
           <MessagesSquare className="size-6" />
         </div>
         <h1 className="mt-5 font-display text-3xl tracking-wide">La chat è per chi gioca</h1>

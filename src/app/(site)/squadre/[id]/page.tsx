@@ -42,10 +42,10 @@ export default async function PublicTeamPage({ params }: PageProps) {
 
         <div className="mt-5 flex flex-wrap gap-4">
           <span className="flex items-center gap-1.5 text-sm font-semibold">
-            <Trophy className="size-4 text-primary" /> {latest ? `${latest.position}° in classifica` : "Nessuna giornata giocata"}
+            <Trophy className="size-4 text-primary-ink" /> {latest ? `${latest.position}° in classifica` : "Nessuna giornata giocata"}
           </span>
           <span className="flex items-center gap-1.5 text-sm font-semibold">
-            <Coins className="size-4 text-primary" /> Valore rosa: {rosterValue} cr.
+            <Coins className="size-4 text-primary-ink" /> Valore rosa: {rosterValue} cr.
           </span>
         </div>
       </div>

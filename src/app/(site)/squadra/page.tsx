@@ -45,7 +45,7 @@ export default async function SquadraPage() {
       <div className="mt-6 grid gap-4 rounded-2xl border border-border bg-surface p-5 sm:grid-cols-[2fr_1fr] sm:items-center">
         <BudgetBar remaining={team.budget_remaining} total={team.budget_initial} />
         <div className="flex items-center gap-2 sm:justify-end">
-          <Gem className="size-4 text-primary" />
+          <Gem className="size-4 text-primary-ink" />
           <span className="text-sm font-semibold">Valore rosa: {rosterValue} cr.</span>
         </div>
       </div>

@@ -38,9 +38,9 @@ export default async function AdminSquadrePage() {
                   <td className="px-4 py-3 text-right text-muted-foreground">
                     {team.budget_remaining}/{team.budget_initial}
                   </td>
-                  <td className="px-4 py-3 text-right font-display text-primary">{team.total_points}</td>
+                  <td className="px-4 py-3 text-right font-display text-primary-ink">{team.total_points}</td>
                   <td className="px-4 py-3 text-right">
-                    <Link href={`/squadre/${team.id}`} target="_blank" className="text-muted-foreground hover:text-primary" aria-label={`Apri pagina pubblica di ${team.team_name}`}>
+                    <Link href={`/squadre/${team.id}`} target="_blank" className="text-muted-foreground hover:text-primary-ink" aria-label={`Apri pagina pubblica di ${team.team_name}`}>
                       <ExternalLink className="size-4" />
                     </Link>
                   </td>

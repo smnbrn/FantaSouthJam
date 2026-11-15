@@ -15,7 +15,7 @@ export default async function HallOfFamePage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
       <div className="mb-10 text-center">
-        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary-ink">
           <Crown className="size-6" />
         </div>
         <h1 className="mt-5 font-display text-4xl tracking-wide sm:text-5xl">Hall of Fame</h1>

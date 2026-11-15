@@ -37,7 +37,7 @@ const SheetContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Co
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          "fixed z-50 gap-4 glass-panel bg-surface p-6 shadow-xl transition ease-in-out",
+          "fixed z-50 gap-4 overflow-y-auto border-border bg-surface p-6 shadow-raised transition ease-in-out",
           "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:duration-300",
           side === "right" &&
             "inset-y-0 right-0 h-full w-3/4 max-w-sm border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right",
@@ -52,7 +52,7 @@ const SheetContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Co
         {...props}
       >
         {children}
-        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-full p-1.5 text-muted-foreground opacity-70 transition-opacity hover:opacity-100 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <DialogPrimitive.Close className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
           <X className="size-4" />
           <span className="sr-only">Chiudi</span>
         </DialogPrimitive.Close>

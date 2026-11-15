@@ -164,7 +164,7 @@ export function RegisterForm() {
                     </FormControl>
                     <FormLabel className="text-sm font-normal text-muted-foreground">
                       Accetto il{" "}
-                      <Link href="/regolamento" className="font-semibold text-primary hover:underline">
+                      <Link href="/regolamento" className="font-semibold text-primary-ink hover:underline">
                         regolamento
                       </Link>{" "}
                       del torneo
@@ -183,7 +183,7 @@ export function RegisterForm() {
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
           Hai già un account?{" "}
-          <Link href="/login" className="font-semibold text-primary hover:underline">
+          <Link href="/login" className="font-semibold text-primary-ink hover:underline">
             Accedi
           </Link>
         </p>

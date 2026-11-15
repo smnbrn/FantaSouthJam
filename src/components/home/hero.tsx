@@ -30,7 +30,7 @@ export function Hero({ countdown, matchdays }: { countdown: HeroCountdown; match
       </svg>
 
       <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 pb-20 pt-16 text-center sm:px-6 sm:pt-24">
-        <span className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
+        <span className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary-ink">
           South Jam 3v3 · Amantea
         </span>
 

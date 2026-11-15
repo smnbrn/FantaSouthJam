@@ -22,7 +22,7 @@ function Honor({
       <div
         className={cn(
           "flex size-10 shrink-0 items-center justify-center rounded-xl",
-          dark ? "bg-white/10 text-accent" : "bg-primary/10 text-primary"
+          dark ? "bg-white/10 text-accent" : "bg-primary/10 text-primary-ink"
         )}
       >
         <Icon className="size-5" />

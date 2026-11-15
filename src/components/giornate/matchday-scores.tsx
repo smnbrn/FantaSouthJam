@@ -44,7 +44,7 @@ export function MatchdayScores({ matchday, scores }: { matchday: Matchday; score
                 {event.quantity > 1 ? ` ×${event.quantity}` : ""}
               </Badge>
             ))}
-            <span className="ml-1 font-display text-xl text-primary">{points} pt</span>
+            <span className="ml-1 font-display text-xl text-primary-ink">{points} pt</span>
           </div>
         </div>
       ))}

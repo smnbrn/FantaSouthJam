@@ -78,7 +78,7 @@ export function Navbar() {
               href={link.href}
               className={cn(
                 "whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold transition-colors hover:bg-muted",
-                pathname === link.href ? "text-primary" : "text-foreground/80"
+                pathname === link.href ? "text-primary-ink" : "text-foreground/80"
               )}
             >
               {link.label}
@@ -178,7 +178,7 @@ export function Navbar() {
                       href={link.href}
                       className={cn(
                         "rounded-xl px-4 py-3 text-base font-semibold transition-colors hover:bg-muted",
-                        pathname === link.href ? "text-primary" : "text-foreground"
+                        pathname === link.href ? "text-primary-ink" : "text-foreground"
                       )}
                     >
                       {link.label}

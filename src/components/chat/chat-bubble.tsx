@@ -192,7 +192,7 @@ export function ChatBubble() {
             />
           ) : (
             <div className="flex h-full items-center justify-center rounded-3xl border border-border bg-surface">
-              <Loader2 className="size-6 animate-spin text-primary" />
+              <Loader2 className="size-6 animate-spin text-primary-ink" />
             </div>
           )}
         </DialogPrimitive.Content>

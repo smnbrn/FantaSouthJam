@@ -51,7 +51,7 @@ export function Footer() {
             <ul className="mt-3 flex flex-col gap-2">
               {group.links.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-foreground/80 transition-colors hover:text-primary">
+                  <Link href={link.href} className="text-sm text-foreground/80 transition-colors hover:text-primary-ink">
                     {link.label}
                   </Link>
                 </li>
@@ -64,7 +64,7 @@ export function Footer() {
         © {new Date().getFullYear()} Fanta SouthJam. Progetto amatoriale, non affiliato alla NBA né ad alcuna lega
         professionistica.
         <div className="mt-2">
-          <CookieSettingsButton className="underline-offset-4 transition-colors hover:text-primary hover:underline" />
+          <CookieSettingsButton className="underline-offset-4 transition-colors hover:text-primary-ink hover:underline" />
         </div>
       </div>
     </footer>

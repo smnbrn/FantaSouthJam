@@ -15,7 +15,21 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
   - Verificato: typecheck 0 errori, lint 0, build ok; visto in locale a 390 px chiaro e scuro (giornate, mercato, classifica).
   - **Rimandato al blocco 2** (serve toccare i componenti): usare `text-primary-ink` al posto di `text-primary` per
     testi e icone, `text-success-foreground` nel Badge, le nuove ombre e la scala tipografica nei componenti.
-- [ ] **Blocco 2 — Componenti base** (Button, Card, Input, Badge, Tabs, Dialog, Skeleton)
+- [x] **Blocco 2 — Componenti base** (15/11/2026): fatto in `src/components/ui/` (+ sostituzione dell'arancio-testo in 34 file).
+  - Button: nuova variante `soft`; `secondary` ora neutro (scuro su chiaro e viceversa, non più marrone); disattivato
+    grigio leggibile, in caricamento resta arancio (`data-loading`, `aria-busy`); `sm` alto 40 px; alone dal token.
+  - Badge: `success` con testo dal token (7,2:1 nello scuro), nuove varianti `soft` e `secondary` neutra; ora è uno `<span>`.
+  - Input, Textarea, Select: testo a 16 px su telefono (sotto, iPhone ingrandisce la pagina al tocco), alone di focus
+    morbido, bordo al passaggio; voci del Select più alte.
+  - Tabs: la fila scorre in orizzontale se le schede non entrano; schede alte 36 px.
+  - Dialog e Sheet: pulsante di chiusura 36 px, ombra dal token, altezza massima con scorrimento; Sheet con fondo pieno.
+  - Skeleton con riflesso che scorre; Avatar con iniziali ambra su fondo scuro (stile tabellone) al posto del marrone.
+  - Mostra/nascondi password raggiungibile da tastiera e più grande.
+  - Nuovo `EmptyState` (`src/components/ui/empty-state.tsx`), da usare nelle pagine nel blocco 3.
+  - Arancio come testo: 47 righe passate a `text-primary-ink`. Restano in arancio pieno il logo, gli elementi sul
+    tabellone scuro e i numeri grandi (24 px o più).
+  - Verificato: typecheck 0 errori, lint 0, build ok; visto in locale a 390 px (squadra, giornate, mercato con
+    finestra di acquisto, profilo; chiaro e scuro) e a 1280 px (dashboard). Nessun errore dell'app in console.
 - [ ] **Blocco 3 — Pagine chiave** (dashboard, mercato, classifica live, profilo squadra, Hall of Fame, chat)
 - [ ] **Blocco 4 — Correzioni tecniche** emerse dall'audit
 

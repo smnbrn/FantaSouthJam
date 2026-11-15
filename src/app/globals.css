@@ -263,6 +263,30 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Segnaposto di caricamento: un riflesso che scorre invece del solo lampeggio. */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+  }
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--foreground) 8%, transparent),
+      transparent
+    );
+    animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  }
+  @keyframes skeleton-shimmer {
+    to {
+      transform: translateX(100%);
+    }
+  }
 }
 
 /* ------------------------------------------------------------------
