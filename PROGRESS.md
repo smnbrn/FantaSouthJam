@@ -95,9 +95,20 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
   - Stato del database locale dopo le prove: Giornata 3 «In corso», un giocatore in più («Giocatore Di Prova»),
     Alessio Vitale a 13 crediti, mercato riaperto a mano.
 
-## Lavoro concluso: cosa resta da decidere
+## Unione in `main` (15/11/2026)
 
-- Unione di `nuove-sale` in `main`: solo con l'OK del proprietario, dopo la prova sull'anteprima Vercel.
+- Il proprietario ha scritto «unisci»: `nuove-sale` unito in `main` (commit `d80d44f`) e inviato a GitHub.
+- Prima dell'invio, su `main`: typecheck 0 errori, lint 0, build ok (29 pagine).
+- Deploy di produzione riuscito su `https://fanta3v3amantea.vercel.app`. Controllato sul sito vero: home e classifica
+  rispondono, 404 «Palla persa» con stato 404, immagine di anteprima presente, sitemap e `og:url` sul dominio giusto,
+  barra in basso con sfocatura attiva, nessuno scorrimento orizzontale a 390 px.
+- Le anteprime Vercel del ramo `nuove-sale` risultano tutte annullate: sul ramo non c'è mai stata un'anteprima da provare.
+- **Non verificato in produzione**: pagine con login (non ho credenziali reali) e aggiornamento in diretta della
+  classifica (dal browser usato per le prove il canale in tempo reale non si apre, né prima né dopo le modifiche;
+  il servizio Supabase risponde). Da controllare da telefono: pallino verde «In diretta» in classifica e chat.
+
+## Cosa resta da decidere
+
 - Conferma prima di rimuovere un bonus dal pannello admin: proposta, non fatta.
 - Rigenerazione dei tipi del database (vedi blocco 4).
 
