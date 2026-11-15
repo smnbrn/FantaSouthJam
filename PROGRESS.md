@@ -74,10 +74,29 @@ Ramo di lavoro: `nuove-sale` (mai su `main`). Aggiornato il 15/11/2026.
   - **Non provato**: le azioni del pannello dal modulo (assegnare un bonus, modificare un giocatore, cambiare
     un'impostazione, archiviare la stagione). Ho solo guardato le pagine; un bonus l'ho assegnato dal database.
 
+- [x] **Azioni del pannello admin provate in locale** (15/11/2026), dal modulo, con l'admin di prova:
+  - Bonus: assegnato (+4 Assist No Look ×2) e rimosso; avviso e elenco aggiornati. La rimozione non chiede conferma.
+  - Giornata: Giornata 3 passata a «In corso»; 47 formazioni congelate, home con «Giornata 3 in corso», registro admin scritto.
+  - Giocatori: modifica del costo, rimozione dal mercato e riattivazione, nuovo giocatore (con i messaggi di errore
+    del modulo vuoto).
+  - Impostazioni: con la data di inizio torneo compilata il salvataggio funziona (mercato chiuso → rose bloccate,
+    regolamento aggiornato nella pagina pubblica).
+  - Hall of Fame: archiviazione della stagione con finestra di conferma, poi eliminazione dell'edizione di prova.
+  - Nessun errore dell'app in console. Nessuna modifica al codice in questo giro.
+  - **DIFETTO TROVATO, NON CORRETTO (esisteva già, file mai toccati)**: se «Data e ora di inizio torneo» è vuota,
+    «Salva tutte le impostazioni» fallisce per intero con il messaggio tecnico
+    `null value in column "value" of relation "settings" violates not-null constraint`. Causa:
+    `src/services/admin-service.ts` riga 127 manda `null`, ma la colonna `settings.value` non lo accetta.
+    In produzione oggi non si vede perché la data è compilata; si presenta se l'admin la svuota.
+    Correzione proposta (una riga, nessun cambio al database): salvare la stringa vuota al posto di `null`;
+    chi legge la data tratta già il vuoto come «data da definire». In attesa dell'OK del proprietario.
+  - Stato del database locale dopo le prove: Giornata 3 «In corso», un giocatore in più («Giocatore Di Prova»),
+    Alessio Vitale a 13 crediti, mercato riaperto a mano.
+
 ## Lavoro concluso: cosa resta da decidere
 
 - Unione di `nuove-sale` in `main`: solo con l'OK del proprietario, dopo la prova sull'anteprima Vercel.
-- Azioni del pannello admin da provare a mano prima dell'unione (vedi sopra).
+- Correzione del salvataggio delle impostazioni con data vuota (vedi sopra): serve l'OK.
 - Rigenerazione dei tipi del database (vedi blocco 4).
 
 ## Verifiche eseguite nell'audit
