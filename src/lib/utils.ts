@@ -1,5 +1,14 @@
 import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { extendTailwindMerge } from "tailwind-merge";
+
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      "font-size": [{ text: ["label", "display-sm", "display-md", "display-lg", "display-xl"] }],
+      shadow: [{ shadow: ["card", "raised", "glow"] }],
+    },
+  },
+});
 
 /** Combina class names condizionali e risolve i conflitti di Tailwind (es. "p-2 p-4" -> "p-4"). */
 export function cn(...inputs: ClassValue[]) {
