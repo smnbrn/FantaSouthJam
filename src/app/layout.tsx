@@ -43,6 +43,7 @@ export const viewport: Viewport = {
   ],
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 // Applica subito il tema salvato (o quello di sistema) PRIMA dell'idratazione

@@ -39,7 +39,7 @@ export default async function ChatPage() {
   const messages = await getRecentMessages(supabase, 100);
 
   return (
-    <div className="mx-auto h-[calc(100dvh-4rem)] max-w-3xl px-2 py-3 sm:px-6 sm:py-6">
+    <div className="mx-auto h-[calc(100dvh-8rem-env(safe-area-inset-bottom))] max-w-3xl px-2 py-3 sm:px-6 sm:py-6 md:h-[calc(100dvh-4rem)]">
       <ChatRoom initialMessages={messages} currentUserId={user.id} isAdmin={profile?.role === "admin"} />
     </div>
   );

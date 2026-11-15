@@ -7,6 +7,8 @@ function Toaster(props: ToasterProps) {
   return (
     <SonnerToaster
       position="bottom-right"
+      // Su telefono gli avvisi stanno sopra la barra di navigazione fissa.
+      mobileOffset={{ bottom: "5rem" }}
       toastOptions={{
         classNames: {
           toast:
