@@ -29,7 +29,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/icone/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
+  appleWebApp: { title: "SouthJam" },
   robots: { index: true, follow: true },
 };
 
